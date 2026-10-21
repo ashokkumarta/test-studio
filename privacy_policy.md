@@ -11,9 +11,8 @@ policy: [ashokkumar.ta@gmail.com](mailto:ashokkumar.ta@gmail.com).
 - Everything you create in Test Studio is stored **only on your computer**.
 - Test Studio has **no telemetry, analytics, advertising or crash reporting**, and it doesn't check for updates. We
   don't receive your requests, responses, collections or anything else you work on.
-- The **full edition** asks you to sign in once with Google, through the sign-in service **Auth0**. Signing in shares
-  your name and email address with Auth0 and records that you signed in.
-- The **demo edition** doesn't sign you in. The name and email you type into it stay on your computer.
+- Test Studio, the full and the demo edition alike, asks you to sign in once with Google, through the sign-in service
+  **Auth0**. Signing in shares your name and email address with Auth0 and records that you signed in.
 
 ## 1. Information stored on your computer
 
@@ -27,7 +26,7 @@ Test Studio keeps the following in its data folder on your computer (`%APPDATA%\
 - **Settings:** your theme, network and proxy settings, and similar preferences.
 - **The vault:** secrets you choose to keep there, encrypted with your computer login (Windows DPAPI or the macOS
   Keychain, where available).
-- **Who uses the app:** your name and email address, and, in the full edition, your Auth0 user ID and when you signed
+- **Who uses the app:** your name and email address, your Auth0 user ID and when you signed
   in. This is encrypted with your computer login where available. It is printed on the reports you save ("Run by Name
   (email)").
 
@@ -35,7 +34,7 @@ We have no access to any of this. It stays on your computer until you delete it,
 app), or uninstall Test Studio and delete its data folder. Files you export, and reports you save, go wherever you
 save them, and you decide who to share them with.
 
-## 2. Information shared when you sign in (full edition)
+## 2. Information shared when you sign in
 
 When you click **Continue with Google**, your web browser opens the sign-in page of Auth0 (operated by Okta, Inc.),
 which passes you on to Google:
@@ -63,7 +62,7 @@ Test Studio connects to the network only:
 
 - to the servers, APIs, brokers and MCP servers **you** send requests to or connect to, with the data you put in those
   requests (including any authentication you configure);
-- to Auth0 and Google when you sign in to the full edition;
+- to Auth0 and Google when you sign in;
 - through your web browser, when you open a link such as **Help** (the user guide on GitHub), or sign in to an OAuth
   2.0 provider for a request.
 
@@ -80,7 +79,7 @@ information from anyone under 16.
 - You can view, change or delete everything in section 1 in Test Studio itself, or by deleting its data folder.
 - You can ask us for a copy of the information Auth0 holds about you, ask us to correct it, or ask us to delete your
   Auth0 user record, by emailing [ashokkumar.ta@gmail.com](mailto:ashokkumar.ta@gmail.com) from the email address you
-  signed in with. Once it is deleted, you will need to sign in again to use the full edition.
+  signed in with. Once it is deleted, you will need to sign in again to use Test Studio.
 - You can remove Test Studio's access to your Google account at any time in your
   [Google Account settings](https://myaccount.google.com/permissions).
 

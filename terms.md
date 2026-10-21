@@ -18,9 +18,9 @@ describes. Every feature is included; there are no paid plans or licences.
 - **Full edition.** You must sign in once with a Google account, through the sign-in service Auth0, before using it.
   You must sign in with an account that is yours, and keep it secure. Test Studio remembers who signed in on that
   computer until you sign out.
-- **Demo edition.** It asks for your name and email instead of a sign-in, and **stops working on the date it states**
+- **Demo edition.** You must sign in the same way as in the full edition, and it **stops working on the date it states**
   (the current demo: 31 January 2027). Your work stays on your computer after it stops; install the full edition over
-  it to keep using that work. Enter your own name and email: they are printed on the reports you save.
+  it to keep using that work.
 
 ## 3. Acceptable use
 

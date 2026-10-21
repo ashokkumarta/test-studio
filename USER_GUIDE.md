@@ -2,7 +2,7 @@
 
 # Fast. Local. Reliable.
 
-**User Guide · version 0.14.0**
+**User Guide · version 0.14.1**
 
 Test Studio is a desktop API client for building, sending, testing and sharing API
 requests. It works entirely on your own computer: there's no account, no
@@ -33,7 +33,7 @@ stored locally. Test Studio only connects to the APIs you send requests to.
 **This is the Test Studio demo.** Every feature is included, until
 31 January 2027. From that day it stops opening; to keep working, ask
 ashokkumar.ta@gmail.com for the full version, which installs over the demo and
-keeps your work. The demo asks for your name and email when it first starts
+keeps your work. The demo asks who you are when it first starts
 (see [First launch](#first-launch)).
 
 ---
@@ -42,7 +42,7 @@ keeps your work. The demo asks for your name and email when it first starts
 
 Test Studio runs on Windows. To install it:
 
-1. Run the installer you were given, `Test Studio Demo Setup 0.14.0.exe`.
+1. Run the installer you were given, `Test Studio Demo Setup 0.14.1.exe`.
 2. If Windows shows _"Windows protected your PC"_, click **More info**, then
    **Run anyway**.
 3. Follow the installer. You can choose the install folder, and whether to
@@ -68,11 +68,18 @@ To keep your work, export your workspace first (see
 
 ## First launch
 
-Before anything else, the demo asks for your **name** and **email**, and
-opens once you click **Continue**. They stay on this computer (encrypted with
-your computer login), and the reports you save say who ran them: "Run by
-your name (your email)". To change them later, use **⚙ → Personal
-details**.
+Before anything else, Test Studio asks you to sign in. Click **Continue with
+Google**: your browser opens on the sign-in page, and once you've signed in
+there it says you can go back to Test Studio, which opens. You only do this once
+on each computer: Test Studio remembers who signed in and opens straight away
+from then on, until you sign out (**⚙ → Sign out**).
+
+- If you close the browser without signing in, click **Cancel**, then sign in again.
+- If signing in fails (you're offline, or it took too long), Test Studio says why;
+  click **Try again**.
+- Your name and email come from your account. They stay on this computer
+  (encrypted with your computer login), and the reports you save say who ran them:
+  "Run by your name (your email)".
 
 Test Studio opens on your workspace, **My Workspace**, ready to use. It remembers the tabs you had open and reopens them the next time you
 start the app.
@@ -1057,8 +1064,9 @@ fully or changes nothing.
   own high-contrast themes (Settings → Accessibility → Contrast themes)
   work too: Test Studio then uses your system's colours.
 
-- **Personal details:** the name and email the demo's reports carry; see
-  [First launch](#first-launch).
+- **Signed in as:** who signed in (their name and email), and **Sign out**,
+  which takes you back to the sign-in screen. Your work stays; the next
+  person to sign in on this computer sees it too.
 
 - **Cookies…:** the cookies Test Studio keeps between requests; see
   [Cookies](#cookies).
@@ -1106,7 +1114,7 @@ if you ask for it, in the Windows installer (**Include the sample
 workspace**); it's off by default. Elsewhere, such as on a Mac,
 [import it yourself](#importing-it-yourself). It appears in the Workspaces view named for
 reference, with its version and the day it was added, such as
-**Sample (reference only) · v0.14.0 · installed 2026-10-21**, and the
+**Sample (reference only) · v0.14.1 · installed 2026-10-21**, and the
 environment **Sample — httpbin** is in it. Adding it doesn't open it: click
 **Open** on its card in the Workspaces view.
 
@@ -1167,10 +1175,13 @@ computer.
 ## Your data and privacy
 
 - Everything you create is stored only on your computer.
-- The name and email you give the demo stay on this computer too, encrypted
-  with your computer login. They're printed only on the reports you save.
-- Test Studio has no telemetry and never sends your data anywhere. It connects
-  only to the APIs you send requests to.
+- Signing in goes through Auth0, the sign-in service, which gets your name and
+  email from your Google account and records that you signed in (when,
+  and how many times). Test Studio keeps your name and email on this computer,
+  encrypted with your computer login, and prints them only on the reports you save.
+  It keeps no passwords or tokens.
+- Test Studio has no telemetry and never sends your data anywhere. Apart from
+  signing in, it connects only to the APIs you send requests to.
 - To back up your work or move it to another computer, use
   **Export** in the [Workspaces view](#managing-workspaces), then
   **Import new workspace…** there on the other computer. If you want the backup to include passwords and tokens, turn on
