@@ -1,0 +1,2459 @@
+{
+  "format": "ancr-export",
+  "version": 1,
+  "scope": "workspace",
+  "exportedAt": "2026-09-28T12:00:00.000Z",
+  "secretsStripped": false,
+  "generator": {
+    "name": "Test Studio",
+    "scriptNamespace": "ancr"
+  },
+  "collections": [
+    {
+      "category": "api",
+      "name": "Sample — HTTP",
+      "folders": [
+        {
+          "name": "HTTP methods",
+          "folders": [],
+          "items": [
+            {
+              "type": "request",
+              "name": "GET — fetch a resource",
+              "config": {
+                "method": "GET",
+                "url": "{{baseUrl}}/get",
+                "params": [],
+                "headers": [],
+                "body": {
+                  "mode": "none"
+                },
+                "auth": {
+                  "type": "none"
+                },
+                "protocol": "http",
+                "testScript": "ancr.test(\"status is 200\", () => {\n  ancr.expect(ancr.response.status).toBe(200);\n});"
+              }
+            },
+            {
+              "type": "request",
+              "name": "POST — create with a JSON body",
+              "config": {
+                "method": "POST",
+                "url": "{{baseUrl}}/post",
+                "params": [],
+                "headers": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "enabled": true
+                  }
+                ],
+                "body": {
+                  "mode": "json",
+                  "raw": "{\n  \"name\": \"Test Studio\",\n  \"tagline\": \"Fast. Local. Reliable.\",\n  \"tags\": [\"api\", \"testing\"]\n}"
+                },
+                "auth": {
+                  "type": "none"
+                },
+                "protocol": "http",
+                "testScript": "ancr.test(\"status is 200\", () => {\n  ancr.expect(ancr.response.status).toBe(200);\n});\n\nancr.test(\"server echoed the JSON body\", () => {\n  ancr.expect(ancr.response.json().json.name).toBe(\"Test Studio\");\n});"
+              }
+            },
+            {
+              "type": "request",
+              "name": "PUT — replace a resource",
+              "config": {
+                "method": "PUT",
+                "url": "{{baseUrl}}/put",
+                "params": [],
+                "headers": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "enabled": true
+                  }
+                ],
+                "body": {
+                  "mode": "json",
+                  "raw": "{\n  \"id\": 1,\n  \"status\": \"replaced\"\n}"
+                },
+                "auth": {
+                  "type": "none"
+                },
+                "protocol": "http",
+                "testScript": "ancr.test(\"status is 200\", () => {\n  ancr.expect(ancr.response.status).toBe(200);\n});\n\nancr.test(\"server echoed the new status\", () => {\n  ancr.expect(ancr.response.json().json.status).toBe(\"replaced\");\n});"
+              }
+            },
+            {
+              "type": "request",
+              "name": "PATCH — partial update",
+              "config": {
+                "method": "PATCH",
+                "url": "{{baseUrl}}/patch",
+                "params": [],
+                "headers": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "enabled": true
+                  }
+                ],
+                "body": {
+                  "mode": "json",
+                  "raw": "{\n  \"status\": \"patched\"\n}"
+                },
+                "auth": {
+                  "type": "none"
+                },
+                "protocol": "http",
+                "testScript": "ancr.test(\"status is 200\", () => {\n  ancr.expect(ancr.response.status).toBe(200);\n});\n\nancr.test(\"server echoed the change\", () => {\n  ancr.expect(ancr.response.json().json).toEqual({ status: \"patched\" });\n});"
+              }
+            },
+            {
+              "type": "request",
+              "name": "DELETE — remove a resource",
+              "config": {
+                "method": "DELETE",
+                "url": "{{baseUrl}}/delete",
+                "params": [],
+                "headers": [],
+                "body": {
+                  "mode": "none"
+                },
+                "auth": {
+                  "type": "none"
+                },
+                "protocol": "http",
+                "testScript": "ancr.test(\"status is 200\", () => {\n  ancr.expect(ancr.response.status).toBe(200);\n});"
+              }
+            },
+            {
+              "type": "request",
+              "name": "HEAD — headers only, no body",
+              "config": {
+                "method": "HEAD",
+                "url": "{{baseUrl}}/get",
+                "params": [],
+                "headers": [],
+                "body": {
+                  "mode": "none"
+                },
+                "auth": {
+                  "type": "none"
+                },
+                "protocol": "http",
+                "testScript": "ancr.test(\"status is 200\", () => {\n  ancr.expect(ancr.response.status).toBe(200);\n});\n\nancr.test(\"has headers but no body\", () => {\n  ancr.expect(ancr.response.headers).toHaveProperty(\"content-type\");\n  ancr.expect(ancr.response.body).toBe(\"\");\n});"
+              }
+            },
+            {
+              "type": "request",
+              "name": "OPTIONS — allowed methods",
+              "config": {
+                "method": "OPTIONS",
+                "url": "{{baseUrl}}/get",
+                "params": [],
+                "headers": [],
+                "body": {
+                  "mode": "none"
+                },
+                "auth": {
+                  "type": "none"
+                },
+                "protocol": "http",
+                "testScript": "ancr.test(\"succeeds\", () => {\n  ancr.expect(ancr.response.status).toBeLessThan(300);\n});"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Params & headers",
+          "folders": [],
+          "items": [
+            {
+              "type": "request",
+              "name": "Query params (one disabled)",
+              "config": {
+                "method": "GET",
+                "url": "{{baseUrl}}/get",
+                "params": [
+                  {
+                    "key": "search",
+                    "value": "Test Studio",
+                    "enabled": true
+                  },
+                  {
+                    "key": "page",
+                    "value": "2",
+                    "enabled": true
+                  },
+                  {
+                    "key": "debug",
+                    "value": "true",
+                    "enabled": false
+                  }
+                ],
+                "headers": [],
+                "body": {
+                  "mode": "none"
+                },
+                "auth": {
+                  "type": "none"
+                },
+                "protocol": "http",
+                "testScript": "ancr.test(\"enabled params were sent\", () => {\n  ancr.expect(ancr.response.json().args).toEqual({ search: \"Test Studio\", page: \"2\" });\n});"
+              }
+            },
+            {
+              "type": "request",
+              "name": "Custom headers",
+              "config": {
+                "method": "GET",
+                "url": "{{baseUrl}}/headers",
+                "params": [],
+                "headers": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "enabled": true
+                  },
+                  {
+                    "key": "X-Client",
+                    "value": "TestStudio-sample",
+                    "enabled": true
+                  },
+                  {
+                    "key": "X-Disabled",
+                    "value": "not sent",
+                    "enabled": false
+                  }
+                ],
+                "body": {
+                  "mode": "none"
+                },
+                "auth": {
+                  "type": "none"
+                },
+                "protocol": "http",
+                "testScript": "// httpbin echoes header names as sent, Postman Echo in lower case,\n// so look them up either way.\nconst echoed = ancr.response.json().headers;\nconst header = (name) => echoed[Object.keys(echoed).find((k) => k.toLowerCase() === name.toLowerCase())];\n\nancr.test(\"sent the enabled header\", () => {\n  ancr.expect(header(\"X-Client\")).toBe(\"TestStudio-sample\");\n});\nancr.test(\"left out the disabled one\", () => {\n  ancr.expect(header(\"X-Disabled\")).toBeUndefined();\n});"
+              }
+            },
+            {
+              "type": "request",
+              "name": "Variables in path, params and headers",
+              "config": {
+                "method": "GET",
+                "url": "{{jsonUrl}}/posts/{{postId}}/comments",
+                "params": [
+                  {
+                    "key": "_limit",
+                    "value": "{{pageSize}}",
+                    "enabled": true
+                  }
+                ],
+                "headers": [
+                  {
+                    "key": "X-Sample-Env",
+                    "value": "{{envName}}",
+                    "enabled": true
+                  }
+                ],
+                "body": {
+                  "mode": "none"
+                },
+                "auth": {
+                  "type": "none"
+                },
+                "protocol": "http",
+                "testScript": "ancr.test(\"status is 200\", () => {\n  ancr.expect(ancr.response.status).toBe(200);\n});\n\nancr.test(\"respects the page size\", () => {\n  ancr.expect(ancr.response.json().length).toBe(Number(ancr.variables.pageSize));\n});"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Request bodies",
+          "folders": [],
+          "items": [
+            {
+              "type": "request",
+              "name": "JSON body",
+              "config": {
+                "method": "POST",
+                "url": "{{baseUrl}}/post",
+                "params": [],
+                "headers": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "enabled": true
+                  }
+                ],
+                "body": {
+                  "mode": "json",
+                  "raw": "{\n  \"order\": 1042,\n  \"items\": [\n    { \"sku\": \"A-1\", \"qty\": 2 },\n    { \"sku\": \"B-7\", \"qty\": 1 }\n  ]\n}"
+                },
+                "auth": {
+                  "type": "none"
+                },
+                "protocol": "http",
+                "testScript": "const sent = ancr.response.json().json;\n\nancr.test(\"server parsed the JSON\", () => {\n  ancr.expect(sent.order).toBe(1042);\n  ancr.expect(sent.items.length).toBe(2);\n  ancr.expect(sent.items).toContain({ sku: \"B-7\", qty: 1 });\n});"
+              }
+            },
+            {
+              "type": "request",
+              "name": "Raw text body",
+              "config": {
+                "method": "POST",
+                "url": "{{baseUrl}}/post",
+                "params": [],
+                "headers": [
+                  {
+                    "key": "Content-Type",
+                    "value": "text/plain",
+                    "enabled": true
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "Plain text sent exactly as typed.\nLine two."
+                },
+                "auth": {
+                  "type": "none"
+                },
+                "protocol": "http",
+                "testScript": "ancr.test(\"text arrived as typed\", () => {\n  ancr.expect(ancr.response.json().data).toContain(\"Line two.\");\n});"
+              }
+            },
+            {
+              "type": "request",
+              "name": "Form URL-encoded body",
+              "config": {
+                "method": "POST",
+                "url": "{{baseUrl}}/post",
+                "params": [],
+                "headers": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded",
+                    "enabled": true
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "formData": [
+                    {
+                      "key": "username",
+                      "value": "TestStudio-user",
+                      "enabled": true
+                    },
+                    {
+                      "key": "remember",
+                      "value": "true",
+                      "enabled": true
+                    },
+                    {
+                      "key": "skipped",
+                      "value": "x",
+                      "enabled": false
+                    }
+                  ]
+                },
+                "auth": {
+                  "type": "none"
+                },
+                "protocol": "http",
+                "testScript": "ancr.test(\"form fields arrived\", () => {\n  ancr.expect(ancr.response.json().form).toHaveProperty(\"username\", \"TestStudio-user\");\n});"
+              }
+            },
+            {
+              "type": "request",
+              "name": "Multipart form-data body",
+              "config": {
+                "method": "POST",
+                "url": "{{baseUrl}}/post",
+                "params": [],
+                "headers": [],
+                "body": {
+                  "mode": "form-data",
+                  "formData": [
+                    {
+                      "key": "title",
+                      "value": "Quarterly report",
+                      "enabled": true
+                    },
+                    {
+                      "key": "category",
+                      "value": "finance",
+                      "enabled": true
+                    }
+                  ]
+                },
+                "auth": {
+                  "type": "none"
+                },
+                "protocol": "http",
+                "testScript": "ancr.test(\"both fields arrived\", () => {\n  const form = ancr.response.json().form;\n  ancr.expect(form.title).toBe(\"Quarterly report\");\n  ancr.expect(form.category).toBe(\"finance\");\n});"
+              }
+            },
+            {
+              "type": "request",
+              "name": "Binary body (a file, sent as it is)",
+              "config": {
+                "method": "POST",
+                "url": "{{baseUrl}}/post",
+                "params": [],
+                "headers": [],
+                "body": {
+                  "mode": "binary",
+                  "binaryPath": "sample-upload.txt"
+                },
+                "auth": {
+                  "type": "none"
+                },
+                "protocol": "http",
+                "testScript": "ancr.test(\"status is 200\", () => {\n  ancr.expect(ancr.response.status).toBe(200);\n});\n\nancr.test(\"the server got the file's text\", () => {\n  ancr.expect(JSON.stringify(ancr.response.json())).toContain(\"Hello from a file\");\n});"
+              }
+            },
+            {
+              "type": "request",
+              "name": "Multipart form-data with a file",
+              "config": {
+                "method": "POST",
+                "url": "{{baseUrl}}/post",
+                "params": [],
+                "headers": [],
+                "body": {
+                  "mode": "form-data",
+                  "formData": [
+                    {
+                      "key": "description",
+                      "value": "A file and a text field",
+                      "enabled": true
+                    },
+                    {
+                      "key": "attachment",
+                      "value": "",
+                      "enabled": true,
+                      "type": "file",
+                      "src": "sample-upload.txt"
+                    }
+                  ]
+                },
+                "auth": {
+                  "type": "none"
+                },
+                "protocol": "http",
+                "testScript": "ancr.test(\"status is 200\", () => {\n  ancr.expect(ancr.response.status).toBe(200);\n});\n\nancr.test(\"one file arrived as a file part\", () => {\n  ancr.expect(Object.keys(ancr.response.json().files).length).toBe(1);\n});"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Authentication",
+          "folders": [],
+          "items": [
+            {
+              "type": "request",
+              "name": "Basic auth",
+              "config": {
+                "method": "GET",
+                "url": "https://httpbin.org/basic-auth/{{username}}/{{password}}",
+                "params": [],
+                "headers": [],
+                "body": {
+                  "mode": "none"
+                },
+                "auth": {
+                  "type": "basic",
+                  "basic": {
+                    "username": "{{username}}",
+                    "password": "{{password}}"
+                  }
+                },
+                "protocol": "http",
+                "testScript": "ancr.test(\"status is 200\", () => {\n  ancr.expect(ancr.response.status).toBe(200);\n});\n\nancr.test(\"authenticated\", () => {\n  ancr.expect(ancr.response.json().authenticated).toBe(true);\n});"
+              }
+            },
+            {
+              "type": "request",
+              "name": "Bearer token",
+              "config": {
+                "method": "GET",
+                "url": "https://httpbin.org/bearer",
+                "params": [],
+                "headers": [],
+                "body": {
+                  "mode": "none"
+                },
+                "auth": {
+                  "type": "bearer",
+                  "bearer": {
+                    "token": "{{token}}"
+                  }
+                },
+                "protocol": "http",
+                "testScript": "ancr.test(\"status is 200\", () => {\n  ancr.expect(ancr.response.status).toBe(200);\n});"
+              }
+            },
+            {
+              "type": "request",
+              "name": "API key in a header",
+              "config": {
+                "method": "GET",
+                "url": "{{baseUrl}}/headers",
+                "params": [],
+                "headers": [],
+                "body": {
+                  "mode": "none"
+                },
+                "auth": {
+                  "type": "apiKey",
+                  "apiKey": {
+                    "key": "X-Api-Key",
+                    "value": "{{apiKey}}",
+                    "addTo": "header"
+                  }
+                },
+                "protocol": "http",
+                "testScript": "// httpbin echoes header names as sent, Postman Echo in lower case,\n// so look them up either way.\nconst echoed = ancr.response.json().headers;\nconst header = (name) => echoed[Object.keys(echoed).find((k) => k.toLowerCase() === name.toLowerCase())];\n\nancr.test(\"sent the key from the environment\", () => {\n  // Tests can read variables too: here, the environment's apiKey.\n  ancr.expect(header(\"X-Api-Key\")).toBe(ancr.variables.apiKey);\n});"
+              }
+            },
+            {
+              "type": "request",
+              "name": "API key in the query string",
+              "config": {
+                "method": "GET",
+                "url": "{{baseUrl}}/get",
+                "params": [],
+                "headers": [],
+                "body": {
+                  "mode": "none"
+                },
+                "auth": {
+                  "type": "apiKey",
+                  "apiKey": {
+                    "key": "api_key",
+                    "value": "{{apiKey}}",
+                    "addTo": "query"
+                  }
+                },
+                "protocol": "http",
+                "testScript": "ancr.test(\"sent the key as a query parameter\", () => {\n  ancr.expect(ancr.response.json().args.api_key).toBe(ancr.variables.apiKey);\n});"
+              }
+            },
+            {
+              "type": "request",
+              "name": "Missing credentials (401)",
+              "config": {
+                "method": "GET",
+                "url": "https://httpbin.org/bearer",
+                "params": [],
+                "headers": [],
+                "body": {
+                  "mode": "none"
+                },
+                "auth": {
+                  "type": "none"
+                },
+                "protocol": "http",
+                "testScript": "ancr.test(\"status is 401\", () => {\n  ancr.expect(ancr.response.status).toBe(401);\n});"
+              }
+            },
+            {
+              "type": "request",
+              "name": "Digest auth",
+              "config": {
+                "method": "GET",
+                "url": "https://httpbin.org/digest-auth/auth/user/passwd",
+                "params": [],
+                "headers": [],
+                "body": {
+                  "mode": "none"
+                },
+                "auth": {
+                  "type": "digest",
+                  "digest": {
+                    "username": "user",
+                    "password": "passwd"
+                  }
+                },
+                "testScript": "ancr.test(\"the Digest challenge was answered\", () => {\n  ancr.expect(ancr.response.status).toBe(200);\n  ancr.expect(ancr.response.json().authenticated).toBe(true);\n});"
+              }
+            },
+            {
+              "type": "request",
+              "name": "OAuth 2.0 client credentials (fill in your provider)",
+              "config": {
+                "method": "GET",
+                "url": "{{baseUrl}}/headers",
+                "params": [],
+                "headers": [],
+                "body": {
+                  "mode": "none"
+                },
+                "auth": {
+                  "type": "oauth2",
+                  "oauth2": {
+                    "grantType": "client_credentials",
+                    "tokenUrl": "{{oauthTokenUrl}}",
+                    "clientId": "{{oauthClientId}}",
+                    "clientSecret": "{{oauthClientSecret}}",
+                    "scope": "read"
+                  }
+                },
+                "testScript": "// Set oauthTokenUrl, oauthClientId and oauthClientSecret in the environment first.\nancr.test(\"the token went in the Authorization header\", () => {\n  ancr.expect(JSON.stringify(ancr.response.json())).toContain(\"Bearer \");\n});"
+              }
+            },
+            {
+              "type": "request",
+              "name": "Client certificate (mutual TLS: add it in the network settings)",
+              "config": {
+                "method": "GET",
+                "url": "https://client.badssl.com/",
+                "params": [],
+                "headers": [],
+                "body": {
+                  "mode": "none"
+                },
+                "auth": {
+                  "type": "none"
+                },
+                "protocol": "http",
+                "testScript": "ancr.test(\"the server accepted the client certificate\", () => {\n  ancr.expect(ancr.response.status).toBe(200);\n});"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Response variations",
+          "folders": [],
+          "items": [
+            {
+              "type": "request",
+              "name": "404 Not Found",
+              "config": {
+                "method": "GET",
+                "url": "{{baseUrl}}/status/404",
+                "params": [],
+                "headers": [],
+                "body": {
+                  "mode": "none"
+                },
+                "auth": {
+                  "type": "none"
+                },
+                "protocol": "http",
+                "testScript": "ancr.test(\"status is 404\", () => {\n  ancr.expect(ancr.response.status).toBe(404);\n});"
+              }
+            },
+            {
+              "type": "request",
+              "name": "500 Server Error",
+              "config": {
+                "method": "GET",
+                "url": "{{baseUrl}}/status/500",
+                "params": [],
+                "headers": [],
+                "body": {
+                  "mode": "none"
+                },
+                "auth": {
+                  "type": "none"
+                },
+                "protocol": "http",
+                "testScript": "ancr.test(\"status is 500\", () => {\n  ancr.expect(ancr.response.status).toBe(500);\n});"
+              }
+            },
+            {
+              "type": "request",
+              "name": "Redirect (followed automatically)",
+              "config": {
+                "method": "GET",
+                "url": "https://httpbin.org/redirect/2",
+                "params": [],
+                "headers": [],
+                "body": {
+                  "mode": "none"
+                },
+                "auth": {
+                  "type": "none"
+                },
+                "protocol": "http",
+                "testScript": "ancr.test(\"status is 200\", () => {\n  ancr.expect(ancr.response.status).toBe(200);\n});"
+              }
+            },
+            {
+              "type": "request",
+              "name": "Slow response (2 s)",
+              "config": {
+                "method": "GET",
+                "url": "{{baseUrl}}/delay/2",
+                "params": [],
+                "headers": [],
+                "body": {
+                  "mode": "none"
+                },
+                "auth": {
+                  "type": "none"
+                },
+                "protocol": "http",
+                "testScript": "const ms = ancr.response.timings.durationMs;\nancr.test(\"took at least the 2 s delay\", () => ancr.expect(ms).toBeGreaterThan(1900));\nancr.test(\"but not much more\", () => ancr.expect(ms).toBeLessThan(15000));\nconsole.log(\"Took\", Math.round(ms), \"ms\");"
+              }
+            },
+            {
+              "type": "request",
+              "name": "Large response (~1 MB preview)",
+              "config": {
+                "method": "GET",
+                "url": "{{jsonUrl}}/photos",
+                "params": [],
+                "headers": [],
+                "body": {
+                  "mode": "none"
+                },
+                "auth": {
+                  "type": "none"
+                },
+                "protocol": "http",
+                "testScript": "ancr.test(\"returns all 5000 photos\", () => {\n  ancr.expect(ancr.response.json().length).toBe(5000);\n});\nancr.test(\"is over 1 MB\", () => {\n  ancr.expect(ancr.response.sizeBytes).toBeGreaterThan(1000000);\n});"
+              }
+            },
+            {
+              "type": "request",
+              "name": "HTML response",
+              "config": {
+                "method": "GET",
+                "url": "https://httpbin.org/html",
+                "params": [],
+                "headers": [],
+                "body": {
+                  "mode": "none"
+                },
+                "auth": {
+                  "type": "none"
+                },
+                "protocol": "http",
+                "testScript": "ancr.test(\"is HTML\", () => {\n  ancr.expect(ancr.response.headers[\"content-type\"]).toContain(\"text/html\");\n  ancr.expect(ancr.response.body).toContain(\"<html\");\n});\n\n// A body that isn't JSON: json() throws, so check for that explicitly.\nancr.test(\"isn't JSON\", () => {\n  let parsed = true;\n  try {\n    ancr.response.json();\n  } catch (e) {\n    parsed = false;\n  }\n  ancr.expect(parsed).toBeFalsy();\n});"
+              }
+            },
+            {
+              "type": "request",
+              "name": "XML response",
+              "config": {
+                "method": "GET",
+                "url": "https://httpbin.org/xml",
+                "params": [],
+                "headers": [],
+                "body": {
+                  "mode": "none"
+                },
+                "auth": {
+                  "type": "none"
+                },
+                "protocol": "http",
+                "testScript": "ancr.test(\"is XML\", () => {\n  ancr.expect(ancr.response.headers[\"content-type\"]).toContain(\"xml\");\n  ancr.expect(ancr.response.body).toContain(\"<slideshow\");\n});"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Pre-request scripts",
+          "folders": [],
+          "items": [
+            {
+              "type": "request",
+              "name": "Generated values: a timestamp, a random id, a computed limit",
+              "config": {
+                "method": "GET",
+                "url": "{{baseUrl}}/get",
+                "params": [
+                  {
+                    "key": "sentAt",
+                    "value": "{{sentAt}}",
+                    "enabled": true
+                  },
+                  {
+                    "key": "nonce",
+                    "value": "{{nonce}}",
+                    "enabled": true
+                  },
+                  {
+                    "key": "limit",
+                    "value": "{{limit}}",
+                    "enabled": true
+                  }
+                ],
+                "headers": [],
+                "body": {
+                  "mode": "none"
+                },
+                "auth": {
+                  "type": "none"
+                },
+                "protocol": "http",
+                "preRequestScript": "// Runs before the request is sent. Values set in ancr.variables can be\n// used as {{name}} in this request only. (To keep a value, set it in\n// ancr.environment instead: see \"Keeping values in the environment\".)\nancr.variables.sentAt = new Date().toISOString();\nancr.variables.nonce = Math.random().toString(36).slice(2, 10);\n// Environment values are strings: convert before doing arithmetic.\nancr.variables.limit = String(Number(ancr.variables.pageSize) * 2);",
+                "testScript": "const args = ancr.response.json().args;\n\nancr.test(\"sent the generated values\", () => {\n  ancr.expect(args.sentAt).toBe(ancr.variables.sentAt);\n  ancr.expect(args.nonce).toBe(ancr.variables.nonce);\n});\nancr.test(\"limit is twice pageSize\", () => {\n  ancr.expect(args.limit).toBe(String(Number(ancr.variables.pageSize) * 2));\n});"
+              }
+            },
+            {
+              "type": "request",
+              "name": "A value that depends on the environment",
+              "config": {
+                "method": "GET",
+                "url": "{{baseUrl}}/headers",
+                "params": [],
+                "headers": [
+                  {
+                    "key": "X-Greeting",
+                    "value": "{{greeting}}",
+                    "enabled": true
+                  }
+                ],
+                "body": {
+                  "mode": "none"
+                },
+                "auth": {
+                  "type": "none"
+                },
+                "protocol": "http",
+                "preRequestScript": "// Pick the environment in the switcher and send again: the header changes.\nancr.variables.greeting =\n  ancr.variables.envName === \"httpbin\" ? \"Hello, httpbin\" : \"Hello, \" + ancr.variables.envName;",
+                "testScript": "// httpbin echoes header names as sent, Postman Echo in lower case,\n// so look them up either way.\nconst echoed = ancr.response.json().headers;\nconst header = (name) => echoed[Object.keys(echoed).find((k) => k.toLowerCase() === name.toLowerCase())];\n\nancr.test(\"sent this environment's greeting\", () => {\n  ancr.expect(header(\"X-Greeting\")).toBe(ancr.variables.greeting);\n});"
+              }
+            },
+            {
+              "type": "request",
+              "name": "An Authorization header built by a script",
+              "config": {
+                "method": "GET",
+                "url": "https://httpbin.org/bearer",
+                "params": [],
+                "headers": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{authHeader}}",
+                    "enabled": true
+                  }
+                ],
+                "body": {
+                  "mode": "none"
+                },
+                "auth": {
+                  "type": "none"
+                },
+                "protocol": "http",
+                "preRequestScript": "// The Auth tab can do this for you (see Authentication → Bearer token);\n// this shows building a header value from variables in a script instead.\nancr.variables.authHeader = \"Bearer \" + ancr.variables.token;",
+                "testScript": "ancr.test(\"status is 200\", () => {\n  ancr.expect(ancr.response.status).toBe(200);\n});\nancr.test(\"server accepted the token\", () => {\n  ancr.expect(ancr.response.json()).toEqual({ authenticated: true, token: ancr.variables.token });\n});"
+              }
+            },
+            {
+              "type": "request",
+              "name": "Logging the request before it goes",
+              "config": {
+                "method": "GET",
+                "url": "{{jsonUrl}}/comments",
+                "params": [
+                  {
+                    "key": "postId",
+                    "value": "{{postId}}",
+                    "enabled": true
+                  }
+                ],
+                "headers": [],
+                "body": {
+                  "mode": "none"
+                },
+                "auth": {
+                  "type": "none"
+                },
+                "protocol": "http",
+                "preRequestScript": "// console output appears in the Logs panel, tagged [pre-request].\n// ancr.request is the request as written, before {{variables}} are filled in.\nconsole.log(ancr.request.method, ancr.request.url);\nconsole.info(\"Params:\", ancr.request.params.map((p) => p.key + \"=\" + p.value).join(\"&\"));\nif (!ancr.variables.postId) console.warn(\"No postId in this environment\");",
+                "testScript": "const comments = ancr.response.json();\n\nancr.test(\"returns the post's comments\", () => {\n  ancr.expect(comments.length).toBeGreaterThan(0);\n  ancr.expect(comments[0].postId).toBe(Number(ancr.variables.postId));\n});\nconsole.log(\"Got\", comments.length, \"comments\");"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Keeping values in the environment",
+          "folders": [],
+          "items": [
+            {
+              "type": "request",
+              "name": "1. Log in (keeps a token)",
+              "config": {
+                "method": "POST",
+                "url": "{{baseUrl}}/post",
+                "params": [],
+                "headers": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "enabled": true
+                  }
+                ],
+                "body": {
+                  "mode": "json",
+                  "raw": "{\n  \"user\": \"{{username}}\",\n  \"token\": \"{{newToken}}\"\n}"
+                },
+                "auth": {
+                  "type": "none"
+                },
+                "protocol": "http",
+                "preRequestScript": "// A stand-in for a login API: the echo server sends back the token we send.\nancr.variables.newToken = \"demo-\" + Math.random().toString(36).slice(2, 10);",
+                "testScript": "const token = ancr.response.json().json.token;\n\nancr.test(\"got a token\", () => ancr.expect(token).toContain(\"demo-\"));\n\n// ancr.environment is saved to the selected environment after the\n// request, and the requests after it in a collection run see it too.\n// Open Manage (environments) to see sessionToken appear.\nancr.environment.sessionToken = token;\nancr.environment.loggedInAt = new Date().toISOString();"
+              }
+            },
+            {
+              "type": "request",
+              "name": "2. Use the token",
+              "config": {
+                "method": "GET",
+                "url": "https://httpbin.org/bearer",
+                "params": [],
+                "headers": [],
+                "body": {
+                  "mode": "none"
+                },
+                "auth": {
+                  "type": "bearer",
+                  "bearer": {
+                    "token": "{{sessionToken}}"
+                  }
+                },
+                "protocol": "http",
+                "testScript": "ancr.test(\"the saved token was accepted\", () => {\n  ancr.expect(ancr.response.status).toBe(200);\n  ancr.expect(ancr.response.json().token).toBe(ancr.environment.sessionToken);\n});"
+              }
+            },
+            {
+              "type": "request",
+              "name": "3. Count the calls",
+              "config": {
+                "method": "GET",
+                "url": "{{baseUrl}}/get",
+                "params": [
+                  {
+                    "key": "call",
+                    "value": "{{callCount}}",
+                    "enabled": true
+                  }
+                ],
+                "headers": [],
+                "body": {
+                  "mode": "none"
+                },
+                "auth": {
+                  "type": "none"
+                },
+                "protocol": "http",
+                "preRequestScript": "// A counter kept in the environment: it goes up by one on every send.\nancr.environment.callCount = String(Number(ancr.environment.callCount ?? 0) + 1);",
+                "testScript": "ancr.test(\"sent the new count\", () => {\n  ancr.expect(ancr.response.json().args.call).toBe(ancr.environment.callCount);\n});"
+              }
+            },
+            {
+              "type": "request",
+              "name": "4. Log out (removes the token)",
+              "config": {
+                "method": "GET",
+                "url": "{{baseUrl}}/get",
+                "params": [],
+                "headers": [],
+                "body": {
+                  "mode": "none"
+                },
+                "auth": {
+                  "type": "none"
+                },
+                "protocol": "http",
+                "testScript": "// Deleting from ancr.environment removes the value from the environment.\ndelete ancr.environment.sessionToken;\ndelete ancr.environment.loggedInAt;\nancr.test(\"the token is gone\", () => ancr.expect(ancr.environment.sessionToken).toBeUndefined());"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Scripts & tests",
+          "folders": [],
+          "items": [
+            {
+              "type": "request",
+              "name": "Pre-request script sets a variable",
+              "config": {
+                "method": "GET",
+                "url": "{{baseUrl}}/headers",
+                "params": [],
+                "headers": [
+                  {
+                    "key": "X-Sample-Request",
+                    "value": "{{requestId}}",
+                    "enabled": true
+                  }
+                ],
+                "body": {
+                  "mode": "none"
+                },
+                "auth": {
+                  "type": "none"
+                },
+                "protocol": "http",
+                "preRequestScript": "// Runs before the request is sent. Variables set here can be used as {{name}}.\nancr.variables.requestId = \"req-\" + Date.now();\nconsole.log(\"Sending request\", ancr.variables.requestId);",
+                "testScript": "// httpbin echoes header names as sent, Postman Echo in lower case,\n// so look them up either way.\nconst echoed = ancr.response.json().headers;\nconst header = (name) => echoed[Object.keys(echoed).find((k) => k.toLowerCase() === name.toLowerCase())];\n\nancr.test(\"header carried the generated id\", () => {\n  // The pre-request script's variables are there for the tests too.\n  ancr.expect(header(\"X-Sample-Request\")).toBe(ancr.variables.requestId);\n});"
+              }
+            },
+            {
+              "type": "request",
+              "name": "Assertions on a JSON response",
+              "config": {
+                "method": "GET",
+                "url": "{{jsonUrl}}/users/1",
+                "params": [],
+                "headers": [],
+                "body": {
+                  "mode": "none"
+                },
+                "auth": {
+                  "type": "none"
+                },
+                "protocol": "http",
+                "testScript": "const user = ancr.response.json();\n\nancr.test(\"status is 200\", () => ancr.expect(ancr.response.status).toBe(200));\nancr.test(\"has an id and name\", () => {\n  ancr.expect(user).toHaveProperty(\"id\", 1);\n  ancr.expect(user.name).toBeDefined();\n});\nancr.test(\"email looks valid\", () => ancr.expect(user.email).toContain(\"@\"));\nancr.test(\"responds quickly\", () => ancr.expect(ancr.response.timings.durationMs).toBeLessThan(5000));\nconsole.log(\"User:\", user.name);"
+              }
+            },
+            {
+              "type": "request",
+              "name": "A failing test (on purpose)",
+              "config": {
+                "method": "GET",
+                "url": "{{baseUrl}}/status/418",
+                "params": [],
+                "headers": [],
+                "body": {
+                  "mode": "none"
+                },
+                "auth": {
+                  "type": "none"
+                },
+                "protocol": "http",
+                "testScript": "ancr.test(\"expects 200 — fails, the server replies 418\", () => {\n  ancr.expect(ancr.response.status).toBe(200);\n});\nancr.test(\"is not a 404\", () => ancr.expect(ancr.response.status).not.toBe(404));"
+              }
+            },
+            {
+              "type": "request",
+              "name": "Every matcher, on one response",
+              "config": {
+                "method": "GET",
+                "url": "{{jsonUrl}}/users/1",
+                "params": [],
+                "headers": [],
+                "body": {
+                  "mode": "none"
+                },
+                "auth": {
+                  "type": "none"
+                },
+                "protocol": "http",
+                "testScript": "// Each matcher ancr.expect() has, and .not to turn any of them around.\nconst user = ancr.response.json();\n\nancr.test(\"toBe: the same value\", () => ancr.expect(user.id).toBe(1));\nancr.test(\"toEqual: the same contents\", () => {\n  ancr.expect(user.address.geo).toEqual({ lat: \"-37.3159\", lng: \"81.1496\" });\n});\nancr.test(\"toBeDefined and toBeUndefined\", () => {\n  ancr.expect(user.email).toBeDefined();\n  ancr.expect(user.password).toBeUndefined();\n});\nancr.test(\"toBeNull\", () => ancr.expect(user.deletedAt ?? null).toBeNull());\nancr.test(\"toBeTruthy and toBeFalsy\", () => {\n  ancr.expect(user.name).toBeTruthy();\n  ancr.expect(user.name.length === 0).toBeFalsy();\n});\nancr.test(\"toBeGreaterThan and toBeLessThan\", () => {\n  ancr.expect(ancr.response.sizeBytes).toBeGreaterThan(100);\n  ancr.expect(ancr.response.status).toBeLessThan(300);\n});\nancr.test(\"toContain: in a string, or an array\", () => {\n  ancr.expect(user.email).toContain(\"@\");\n  ancr.expect(Object.keys(user)).toContain(\"company\");\n});\nancr.test(\"toHaveProperty: a key, or a key and its value\", () => {\n  ancr.expect(user).toHaveProperty(\"phone\");\n  ancr.expect(user.company).toHaveProperty(\"name\", \"Romaguera-Crona\");\n});\nancr.test(\".not\", () => {\n  ancr.expect(ancr.response.status).not.toBe(404);\n  ancr.expect(user.website).not.toContain(\" \");\n});"
+              }
+            },
+            {
+              "type": "request",
+              "name": "Checking every item in a list",
+              "config": {
+                "method": "GET",
+                "url": "{{jsonUrl}}/posts",
+                "params": [
+                  {
+                    "key": "userId",
+                    "value": "1",
+                    "enabled": true
+                  }
+                ],
+                "headers": [],
+                "body": {
+                  "mode": "none"
+                },
+                "auth": {
+                  "type": "none"
+                },
+                "protocol": "http",
+                "testScript": "const posts = ancr.response.json();\n\nancr.test(\"returns user 1's ten posts\", () => ancr.expect(posts.length).toBe(10));\nancr.test(\"every post belongs to user 1\", () => {\n  for (const post of posts) ancr.expect(post.userId).toBe(1);\n});\nancr.test(\"every post has a title and a body\", () => {\n  const incomplete = posts.filter((post) => !post.title || !post.body);\n  ancr.expect(incomplete).toEqual([]);\n});\nconsole.log(\"Titles:\", posts.map((post) => post.title).slice(0, 3));"
+              }
+            },
+            {
+              "type": "request",
+              "name": "Response headers, size and timing",
+              "config": {
+                "method": "GET",
+                "url": "{{jsonUrl}}/todos/1",
+                "params": [],
+                "headers": [],
+                "body": {
+                  "mode": "none"
+                },
+                "auth": {
+                  "type": "none"
+                },
+                "protocol": "http",
+                "testScript": "const { headers, sizeBytes, timings } = ancr.response;\n\nancr.test(\"is JSON\", () => ancr.expect(headers[\"content-type\"]).toContain(\"application/json\"));\nancr.test(\"has a body\", () => ancr.expect(sizeBytes).toBeGreaterThan(0));\nancr.test(\"answers within 5 s\", () => ancr.expect(timings.durationMs).toBeLessThan(5000));\n\n// Where the time went, as in the response's Timing tab. Send it twice:\n// the second time the connection is reused, so DNS, connect and TLS are 0.\nif (timings.phases) {\n  const { dnsMs, connectMs, tlsMs, waitMs, downloadMs, reusedConnection } = timings.phases;\n  const ms = (n) => Math.round(n) + \" ms\";\n  console.log(\"DNS\", ms(dnsMs), \"· connect\", ms(connectMs), \"· TLS\", ms(tlsMs), \"· wait\", ms(waitMs), \"· download\", ms(downloadMs));\n  console.log(reusedConnection ? \"Reused an open connection\" : \"Opened a new connection\");\n  ancr.test(\"no phase is negative\", () => {\n    for (const ms of [dnsMs, connectMs, tlsMs, waitMs, downloadMs]) ancr.expect(ms < 0).toBeFalsy();\n  });\n}"
+              }
+            },
+            {
+              "type": "request",
+              "name": "A script written for Postman (pm.*)",
+              "config": {
+                "method": "GET",
+                "url": "{{jsonUrl}}/users/1",
+                "params": [],
+                "headers": [],
+                "body": {
+                  "mode": "none"
+                },
+                "auth": {
+                  "type": "none"
+                },
+                "testScript": "// Postman's common pm calls work as written.\npm.test(\"status is 200\", () => pm.response.to.have.status(200));\npm.test(\"the user has an email\", () => {\n  const user = pm.response.json();\n  pm.expect(user).to.have.property(\"email\");\n  pm.expect(user.email).to.be.a(\"string\").and.to.include(\"@\");\n});\npm.environment.set(\"userEmail\", pm.response.json().email);"
+              }
+            }
+          ]
+        },
+        {
+          "name": "REST CRUD (JSONPlaceholder)",
+          "folders": [],
+          "items": [
+            {
+              "type": "request",
+              "name": "List posts",
+              "config": {
+                "method": "GET",
+                "url": "{{jsonUrl}}/posts",
+                "params": [
+                  {
+                    "key": "_limit",
+                    "value": "{{pageSize}}",
+                    "enabled": true
+                  }
+                ],
+                "headers": [],
+                "body": {
+                  "mode": "none"
+                },
+                "auth": {
+                  "type": "none"
+                },
+                "protocol": "http",
+                "testScript": "ancr.test(\"status is 200\", () => {\n  ancr.expect(ancr.response.status).toBe(200);\n});"
+              }
+            },
+            {
+              "type": "request",
+              "name": "Get one post",
+              "config": {
+                "method": "GET",
+                "url": "{{jsonUrl}}/posts/{{postId}}",
+                "params": [],
+                "headers": [],
+                "body": {
+                  "mode": "none"
+                },
+                "auth": {
+                  "type": "none"
+                },
+                "protocol": "http",
+                "testScript": "ancr.test(\"status is 200\", () => {\n  ancr.expect(ancr.response.status).toBe(200);\n});"
+              }
+            },
+            {
+              "type": "request",
+              "name": "Create a post",
+              "config": {
+                "method": "POST",
+                "url": "{{jsonUrl}}/posts",
+                "params": [],
+                "headers": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "enabled": true
+                  }
+                ],
+                "body": {
+                  "mode": "json",
+                  "raw": "{\n  \"title\": \"Hello from Test Studio\",\n  \"body\": \"Created from the sample workspace.\",\n  \"userId\": 1\n}"
+                },
+                "auth": {
+                  "type": "none"
+                },
+                "protocol": "http",
+                "testScript": "ancr.test(\"status is 201\", () => {\n  ancr.expect(ancr.response.status).toBe(201);\n});"
+              }
+            },
+            {
+              "type": "request",
+              "name": "Update a post",
+              "config": {
+                "method": "PUT",
+                "url": "{{jsonUrl}}/posts/{{postId}}",
+                "params": [],
+                "headers": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "enabled": true
+                  }
+                ],
+                "body": {
+                  "mode": "json",
+                  "raw": "{\n  \"id\": 1,\n  \"title\": \"Updated title\",\n  \"body\": \"Updated body\",\n  \"userId\": 1\n}"
+                },
+                "auth": {
+                  "type": "none"
+                },
+                "protocol": "http",
+                "testScript": "ancr.test(\"status is 200\", () => {\n  ancr.expect(ancr.response.status).toBe(200);\n});"
+              }
+            },
+            {
+              "type": "request",
+              "name": "Delete a post",
+              "config": {
+                "method": "DELETE",
+                "url": "{{jsonUrl}}/posts/{{postId}}",
+                "params": [],
+                "headers": [],
+                "body": {
+                  "mode": "none"
+                },
+                "auth": {
+                  "type": "none"
+                },
+                "protocol": "http",
+                "testScript": "ancr.test(\"status is 200\", () => {\n  ancr.expect(ancr.response.status).toBe(200);\n});"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Cookies",
+          "folders": [],
+          "items": [
+            {
+              "type": "request",
+              "name": "Set a cookie (the redirect sends it back)",
+              "config": {
+                "method": "GET",
+                "url": "https://httpbin.org/cookies/set",
+                "params": [
+                  {
+                    "key": "flavour",
+                    "value": "oatmeal",
+                    "enabled": true
+                  }
+                ],
+                "headers": [],
+                "body": {
+                  "mode": "none"
+                },
+                "auth": {
+                  "type": "none"
+                },
+                "testScript": "ancr.test(\"the cookie is kept\", () => ancr.expect(ancr.cookies.get(\"flavour\")).toBe(\"oatmeal\"));\nancr.test(\"and sent after the redirect\", () => ancr.expect(ancr.response.json().cookies.flavour).toBe(\"oatmeal\"));"
+              }
+            },
+            {
+              "type": "request",
+              "name": "Send the kept cookies",
+              "config": {
+                "method": "GET",
+                "url": "https://httpbin.org/cookies",
+                "params": [],
+                "headers": [],
+                "body": {
+                  "mode": "none"
+                },
+                "auth": {
+                  "type": "none"
+                },
+                "testScript": "ancr.test(\"the kept cookie is sent\", () => ancr.expect(ancr.response.json().cookies.flavour).toBe(\"oatmeal\"));"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Data-driven run (Pro: run it with sample-users.csv)",
+          "folders": [],
+          "items": [
+            {
+              "type": "request",
+              "name": "Look up the user from the row",
+              "config": {
+                "method": "GET",
+                "url": "{{jsonUrl}}/users/{{userId}}",
+                "params": [],
+                "headers": [],
+                "body": {
+                  "mode": "none"
+                },
+                "auth": {
+                  "type": "none"
+                },
+                "protocol": "http",
+                "testScript": "ancr.test(\"user \" + ancr.iteration.data.userId + \" is \" + ancr.iteration.data.username, () => {\n  ancr.expect(ancr.response.status).toBe(200);\n  ancr.expect(ancr.response.json().username).toBe(ancr.iteration.data.username);\n});\nancr.test(\"pass \" + (ancr.iteration.index + 1) + \" of \" + ancr.iteration.count, () => {\n  ancr.expect(ancr.iteration.index).toBeLessThan(ancr.iteration.count);\n});"
+              }
+            },
+            {
+              "type": "request",
+              "name": "The same, written for Postman (pm.iterationData)",
+              "config": {
+                "method": "GET",
+                "url": "{{jsonUrl}}/users/{{userId}}",
+                "params": [],
+                "headers": [],
+                "body": {
+                  "mode": "none"
+                },
+                "auth": {
+                  "type": "none"
+                },
+                "protocol": "http",
+                "testScript": "pm.test(\"username matches the data file\", () => {\n  pm.expect(pm.response.json().username).to.equal(pm.iterationData.get(\"username\"));\n});"
+              }
+            }
+          ]
+        }
+      ],
+      "items": []
+    },
+    {
+      "category": "api",
+      "name": "Sample — GraphQL",
+      "folders": [
+        {
+          "name": "Countries API",
+          "folders": [],
+          "items": [
+            {
+              "type": "request",
+              "name": "Simple query",
+              "config": {
+                "method": "POST",
+                "url": "{{countriesGraphqlUrl}}",
+                "params": [],
+                "headers": [],
+                "body": {
+                  "mode": "none"
+                },
+                "auth": {
+                  "type": "none"
+                },
+                "protocol": "graphql",
+                "protocolConfig": {
+                  "query": "{\n  country(code: \"IN\") {\n    name\n    capital\n    currency\n    emoji\n  }\n}"
+                },
+                "testScript": "ancr.test(\"returns India\", () => {\n  ancr.expect(ancr.response.json().data.country.name).toBe(\"India\");\n});"
+              }
+            },
+            {
+              "type": "request",
+              "name": "Query with variables",
+              "config": {
+                "method": "POST",
+                "url": "{{countriesGraphqlUrl}}",
+                "params": [],
+                "headers": [],
+                "body": {
+                  "mode": "none"
+                },
+                "auth": {
+                  "type": "none"
+                },
+                "protocol": "graphql",
+                "protocolConfig": {
+                  "query": "query CountryByCode($code: ID!) {\n  country(code: $code) {\n    name\n    capital\n    languages {\n      name\n    }\n  }\n}",
+                  "variables": {
+                    "code": "JP"
+                  }
+                },
+                "testScript": "ancr.test(\"no GraphQL errors\", () => {\n  ancr.expect(ancr.response.json().errors).toBeUndefined();\n});\nancr.test(\"the variable picked Japan\", () => {\n  const country = ancr.response.json().data.country;\n  ancr.expect(country.name).toBe(\"Japan\");\n  ancr.expect(country.capital).toBe(\"Tokyo\");\n  ancr.expect(country.languages).toContain({ name: \"Japanese\" });\n});"
+              }
+            },
+            {
+              "type": "request",
+              "name": "Several operations — pick one by name",
+              "config": {
+                "method": "POST",
+                "url": "{{countriesGraphqlUrl}}",
+                "params": [],
+                "headers": [],
+                "body": {
+                  "mode": "none"
+                },
+                "auth": {
+                  "type": "none"
+                },
+                "protocol": "graphql",
+                "protocolConfig": {
+                  "query": "query Continents {\n  continents {\n    code\n    name\n  }\n}\n\nquery Languages {\n  languages {\n    code\n    name\n  }\n}",
+                  "operationName": "Continents"
+                },
+                "testScript": "ancr.test(\"ran Continents, not Languages\", () => {\n  const data = ancr.response.json().data;\n  ancr.expect(data.continents.length).toBe(7);\n  ancr.expect(data.languages).toBeUndefined();\n});"
+              }
+            },
+            {
+              "type": "request",
+              "name": "Nested fields and filters",
+              "config": {
+                "method": "POST",
+                "url": "{{countriesGraphqlUrl}}",
+                "params": [],
+                "headers": [],
+                "body": {
+                  "mode": "none"
+                },
+                "auth": {
+                  "type": "none"
+                },
+                "protocol": "graphql",
+                "protocolConfig": {
+                  "query": "query EuropeanCountries($continent: String!) {\n  countries(filter: { continent: { eq: $continent } }) {\n    code\n    name\n    continent {\n      name\n    }\n  }\n}",
+                  "variables": {
+                    "continent": "EU"
+                  }
+                },
+                "testScript": "ancr.test(\"no GraphQL errors\", () => {\n  ancr.expect(ancr.response.json().errors).toBeUndefined();\n});\nancr.test(\"every country is in Europe\", () => {\n  for (const country of ancr.response.json().data.countries) {\n    ancr.expect(country.continent.name).toBe(\"Europe\");\n  }\n});"
+              }
+            },
+            {
+              "type": "request",
+              "name": "Error response (unknown field)",
+              "config": {
+                "method": "POST",
+                "url": "{{countriesGraphqlUrl}}",
+                "params": [],
+                "headers": [],
+                "body": {
+                  "mode": "none"
+                },
+                "auth": {
+                  "type": "none"
+                },
+                "protocol": "graphql",
+                "protocolConfig": {
+                  "query": "{\n  country(code: \"IN\") {\n    name\n    population\n  }\n}"
+                },
+                "testScript": "// GraphQL servers report errors in the body, whatever the HTTP status.\nancr.test(\"the unknown field is reported\", () => {\n  const errors = ancr.response.json().errors;\n  ancr.expect(errors.length).toBeGreaterThan(0);\n  ancr.expect(errors[0].message).toContain(\"population\");\n});"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Rick and Morty API",
+          "folders": [],
+          "items": [
+            {
+              "type": "request",
+              "name": "Paginated list with variables",
+              "config": {
+                "method": "POST",
+                "url": "https://rickandmortyapi.com/graphql",
+                "params": [],
+                "headers": [],
+                "body": {
+                  "mode": "none"
+                },
+                "auth": {
+                  "type": "none"
+                },
+                "protocol": "graphql",
+                "protocolConfig": {
+                  "query": "query Characters($page: Int, $name: String) {\n  characters(page: $page, filter: { name: $name }) {\n    info {\n      count\n      pages\n      next\n    }\n    results {\n      id\n      name\n      status\n      species\n    }\n  }\n}",
+                  "variables": {
+                    "page": 1,
+                    "name": "rick"
+                  }
+                },
+                "testScript": "ancr.test(\"found characters\", () => {\n  ancr.expect(ancr.response.json().data.characters.results.length).toBeGreaterThan(0);\n});"
+              }
+            },
+            {
+              "type": "request",
+              "name": "Single item by id",
+              "config": {
+                "method": "POST",
+                "url": "https://rickandmortyapi.com/graphql",
+                "params": [],
+                "headers": [],
+                "body": {
+                  "mode": "none"
+                },
+                "auth": {
+                  "type": "none"
+                },
+                "protocol": "graphql",
+                "protocolConfig": {
+                  "query": "query Character($id: ID!) {\n  character(id: $id) {\n    name\n    origin {\n      name\n    }\n    episode {\n      name\n      air_date\n    }\n  }\n}",
+                  "variables": {
+                    "id": "1"
+                  }
+                },
+                "testScript": "ancr.test(\"no GraphQL errors\", () => {\n  ancr.expect(ancr.response.json().errors).toBeUndefined();\n});\nancr.test(\"character 1 is Rick Sanchez\", () => {\n  const character = ancr.response.json().data.character;\n  ancr.expect(character.name).toBe(\"Rick Sanchez\");\n  ancr.expect(character.episode.length).toBeGreaterThan(0);\n});"
+              }
+            }
+          ]
+        }
+      ],
+      "items": []
+    },
+    {
+      "category": "api",
+      "name": "Sample — Server-Sent Events",
+      "folders": [],
+      "items": [
+        {
+          "type": "request",
+          "name": "Named events with ids (5 events after ~5 s, then closes)",
+          "config": {
+            "method": "GET",
+            "url": "https://postman-echo.com/server-events/5",
+            "params": [],
+            "headers": [],
+            "body": {
+              "mode": "none"
+            },
+            "auth": {
+              "type": "none"
+            },
+            "protocol": "sse"
+          }
+        },
+        {
+          "type": "request",
+          "name": "Wikimedia live edits (busy stream)",
+          "config": {
+            "method": "GET",
+            "url": "https://stream.wikimedia.org/v2/stream/recentchange",
+            "params": [],
+            "headers": [
+              {
+                "key": "Accept",
+                "value": "text/event-stream",
+                "enabled": true
+              }
+            ],
+            "body": {
+              "mode": "none"
+            },
+            "auth": {
+              "type": "none"
+            },
+            "protocol": "sse"
+          }
+        },
+        {
+          "type": "request",
+          "name": "Named events, with tests on what arrives",
+          "config": {
+            "method": "GET",
+            "url": "https://postman-echo.com/server-events/5",
+            "params": [],
+            "headers": [],
+            "body": {
+              "mode": "none"
+            },
+            "auth": {
+              "type": "none"
+            },
+            "protocol": "sse",
+            "testScript": "// Runs again as events arrive: it passes once all five are in.\nancr.test(\"five events arrive\", () => ancr.expect(ancr.messages.length).toBe(5));\nancr.test(\"the first within 10 s\", () => ancr.expect(ancr.messages[0].at).toBeLessThan(10000));"
+          }
+        }
+      ]
+    },
+    {
+      "category": "api",
+      "name": "Sample — gRPC",
+      "folders": [],
+      "items": [
+        {
+          "type": "request",
+          "name": "SayHello (plaintext)",
+          "config": {
+            "method": "GET",
+            "url": "grpcb.in:9000",
+            "params": [],
+            "headers": [],
+            "body": {
+              "mode": "none"
+            },
+            "auth": {
+              "type": "none"
+            },
+            "protocol": "grpc",
+            "protocolConfig": {
+              "protoFile": "syntax = \"proto2\";\n\npackage hello;\n\n// Greeting service on the public grpcb.in test server (github.com/moul/pb).\nservice HelloService {\n  rpc SayHello(HelloRequest) returns (HelloResponse);\n}\n\nmessage HelloRequest {\n  optional string greeting = 1;\n}\n\nmessage HelloResponse {\n  required string reply = 1;\n}\n",
+              "serviceFullName": "hello.HelloService",
+              "methodName": "SayHello",
+              "requestMessage": {
+                "greeting": "Test Studio"
+              },
+              "usePlaintext": true
+            }
+          }
+        },
+        {
+          "type": "request",
+          "name": "SayHello (TLS)",
+          "config": {
+            "method": "GET",
+            "url": "grpcb.in:9001",
+            "params": [],
+            "headers": [],
+            "body": {
+              "mode": "none"
+            },
+            "auth": {
+              "type": "none"
+            },
+            "protocol": "grpc",
+            "protocolConfig": {
+              "protoFile": "syntax = \"proto2\";\n\npackage hello;\n\n// Greeting service on the public grpcb.in test server (github.com/moul/pb).\nservice HelloService {\n  rpc SayHello(HelloRequest) returns (HelloResponse);\n}\n\nmessage HelloRequest {\n  optional string greeting = 1;\n}\n\nmessage HelloResponse {\n  required string reply = 1;\n}\n",
+              "serviceFullName": "hello.HelloService",
+              "methodName": "SayHello",
+              "requestMessage": {
+                "greeting": "secure Test Studio"
+              },
+              "usePlaintext": false
+            }
+          }
+        },
+        {
+          "type": "request",
+          "name": "Server index (empty request)",
+          "config": {
+            "method": "GET",
+            "url": "grpcb.in:9000",
+            "params": [],
+            "headers": [],
+            "body": {
+              "mode": "none"
+            },
+            "auth": {
+              "type": "none"
+            },
+            "protocol": "grpc",
+            "protocolConfig": {
+              "protoFile": "syntax = \"proto3\";\n\npackage grpcbin;\n\n// Unary methods of the public grpcb.in test server (github.com/moul/pb).\n// Test Studio supports unary calls, so the streaming methods are left out.\nservice GRPCBin {\n  // Describes the server's endpoints.\n  rpc Index(EmptyMessage) returns (IndexReply) {}\n  // Replies with an empty message.\n  rpc Empty(EmptyMessage) returns (EmptyMessage) {}\n  // Echoes back the DummyMessage it receives.\n  rpc DummyUnary(DummyMessage) returns (DummyMessage) {}\n  // Fails with the status code you ask for.\n  rpc SpecificError(SpecificErrorRequest) returns (EmptyMessage) {}\n  // Returns the request metadata it received.\n  rpc HeadersUnary(EmptyMessage) returns (HeadersMessage) {}\n}\n\nmessage HeadersMessage {\n  message Values {\n    repeated string values = 1;\n  }\n  map<string, Values> Metadata = 1;\n}\n\nmessage SpecificErrorRequest {\n  uint32 code = 1;\n  string reason = 2;\n}\n\nmessage EmptyMessage {}\n\nmessage DummyMessage {\n  message Sub {\n    string f_string = 1;\n  }\n  enum Enum {\n    ENUM_0 = 0;\n    ENUM_1 = 1;\n    ENUM_2 = 2;\n  }\n  string f_string = 1;\n  repeated string f_strings = 2;\n  int32 f_int32 = 3;\n  repeated int32 f_int32s = 4;\n  Enum f_enum = 5;\n  repeated Enum f_enums = 6;\n  Sub f_sub = 7;\n  repeated Sub f_subs = 8;\n  bool f_bool = 9;\n  repeated bool f_bools = 10;\n  int64 f_int64 = 11;\n  repeated int64 f_int64s = 12;\n  bytes f_bytes = 13;\n  repeated bytes f_bytess = 14;\n  float f_float = 15;\n  repeated float f_floats = 16;\n}\n\nmessage IndexReply {\n  message Endpoint {\n    string path = 1;\n    string description = 2;\n  }\n  string description = 1;\n  repeated Endpoint endpoints = 2;\n}\n",
+              "serviceFullName": "grpcbin.GRPCBin",
+              "methodName": "Index",
+              "requestMessage": {},
+              "usePlaintext": true
+            }
+          }
+        },
+        {
+          "type": "request",
+          "name": "Echo every field type",
+          "config": {
+            "method": "GET",
+            "url": "grpcb.in:9000",
+            "params": [],
+            "headers": [],
+            "body": {
+              "mode": "none"
+            },
+            "auth": {
+              "type": "none"
+            },
+            "protocol": "grpc",
+            "protocolConfig": {
+              "protoFile": "syntax = \"proto3\";\n\npackage grpcbin;\n\n// Unary methods of the public grpcb.in test server (github.com/moul/pb).\n// Test Studio supports unary calls, so the streaming methods are left out.\nservice GRPCBin {\n  // Describes the server's endpoints.\n  rpc Index(EmptyMessage) returns (IndexReply) {}\n  // Replies with an empty message.\n  rpc Empty(EmptyMessage) returns (EmptyMessage) {}\n  // Echoes back the DummyMessage it receives.\n  rpc DummyUnary(DummyMessage) returns (DummyMessage) {}\n  // Fails with the status code you ask for.\n  rpc SpecificError(SpecificErrorRequest) returns (EmptyMessage) {}\n  // Returns the request metadata it received.\n  rpc HeadersUnary(EmptyMessage) returns (HeadersMessage) {}\n}\n\nmessage HeadersMessage {\n  message Values {\n    repeated string values = 1;\n  }\n  map<string, Values> Metadata = 1;\n}\n\nmessage SpecificErrorRequest {\n  uint32 code = 1;\n  string reason = 2;\n}\n\nmessage EmptyMessage {}\n\nmessage DummyMessage {\n  message Sub {\n    string f_string = 1;\n  }\n  enum Enum {\n    ENUM_0 = 0;\n    ENUM_1 = 1;\n    ENUM_2 = 2;\n  }\n  string f_string = 1;\n  repeated string f_strings = 2;\n  int32 f_int32 = 3;\n  repeated int32 f_int32s = 4;\n  Enum f_enum = 5;\n  repeated Enum f_enums = 6;\n  Sub f_sub = 7;\n  repeated Sub f_subs = 8;\n  bool f_bool = 9;\n  repeated bool f_bools = 10;\n  int64 f_int64 = 11;\n  repeated int64 f_int64s = 12;\n  bytes f_bytes = 13;\n  repeated bytes f_bytess = 14;\n  float f_float = 15;\n  repeated float f_floats = 16;\n}\n\nmessage IndexReply {\n  message Endpoint {\n    string path = 1;\n    string description = 2;\n  }\n  string description = 1;\n  repeated Endpoint endpoints = 2;\n}\n",
+              "serviceFullName": "grpcbin.GRPCBin",
+              "methodName": "DummyUnary",
+              "requestMessage": {
+                "f_string": "hello",
+                "f_strings": [
+                  "one",
+                  "two"
+                ],
+                "f_int32": 42,
+                "f_int32s": [
+                  1,
+                  2,
+                  3
+                ],
+                "f_enum": 1,
+                "f_enums": [
+                  0,
+                  2
+                ],
+                "f_sub": {
+                  "f_string": "nested"
+                },
+                "f_subs": [
+                  {
+                    "f_string": "first"
+                  },
+                  {
+                    "f_string": "second"
+                  }
+                ],
+                "f_bool": true,
+                "f_bools": [
+                  true,
+                  false
+                ],
+                "f_int64": 1234567890123,
+                "f_float": 3.5,
+                "f_floats": [
+                  0.5,
+                  1.5
+                ]
+              },
+              "usePlaintext": true
+            }
+          }
+        },
+        {
+          "type": "request",
+          "name": "Request metadata",
+          "config": {
+            "method": "GET",
+            "url": "grpcb.in:9000",
+            "params": [],
+            "headers": [
+              {
+                "key": "x-client",
+                "value": "TestStudio-sample",
+                "enabled": true
+              },
+              {
+                "key": "x-trace-id",
+                "value": "trace-123",
+                "enabled": true
+              }
+            ],
+            "body": {
+              "mode": "none"
+            },
+            "auth": {
+              "type": "none"
+            },
+            "protocol": "grpc",
+            "protocolConfig": {
+              "protoFile": "syntax = \"proto3\";\n\npackage grpcbin;\n\n// Unary methods of the public grpcb.in test server (github.com/moul/pb).\n// Test Studio supports unary calls, so the streaming methods are left out.\nservice GRPCBin {\n  // Describes the server's endpoints.\n  rpc Index(EmptyMessage) returns (IndexReply) {}\n  // Replies with an empty message.\n  rpc Empty(EmptyMessage) returns (EmptyMessage) {}\n  // Echoes back the DummyMessage it receives.\n  rpc DummyUnary(DummyMessage) returns (DummyMessage) {}\n  // Fails with the status code you ask for.\n  rpc SpecificError(SpecificErrorRequest) returns (EmptyMessage) {}\n  // Returns the request metadata it received.\n  rpc HeadersUnary(EmptyMessage) returns (HeadersMessage) {}\n}\n\nmessage HeadersMessage {\n  message Values {\n    repeated string values = 1;\n  }\n  map<string, Values> Metadata = 1;\n}\n\nmessage SpecificErrorRequest {\n  uint32 code = 1;\n  string reason = 2;\n}\n\nmessage EmptyMessage {}\n\nmessage DummyMessage {\n  message Sub {\n    string f_string = 1;\n  }\n  enum Enum {\n    ENUM_0 = 0;\n    ENUM_1 = 1;\n    ENUM_2 = 2;\n  }\n  string f_string = 1;\n  repeated string f_strings = 2;\n  int32 f_int32 = 3;\n  repeated int32 f_int32s = 4;\n  Enum f_enum = 5;\n  repeated Enum f_enums = 6;\n  Sub f_sub = 7;\n  repeated Sub f_subs = 8;\n  bool f_bool = 9;\n  repeated bool f_bools = 10;\n  int64 f_int64 = 11;\n  repeated int64 f_int64s = 12;\n  bytes f_bytes = 13;\n  repeated bytes f_bytess = 14;\n  float f_float = 15;\n  repeated float f_floats = 16;\n}\n\nmessage IndexReply {\n  message Endpoint {\n    string path = 1;\n    string description = 2;\n  }\n  string description = 1;\n  repeated Endpoint endpoints = 2;\n}\n",
+              "serviceFullName": "grpcbin.GRPCBin",
+              "methodName": "HeadersUnary",
+              "requestMessage": {},
+              "usePlaintext": true
+            }
+          }
+        },
+        {
+          "type": "request",
+          "name": "Error status (NOT_FOUND)",
+          "config": {
+            "method": "GET",
+            "url": "grpcb.in:9000",
+            "params": [],
+            "headers": [],
+            "body": {
+              "mode": "none"
+            },
+            "auth": {
+              "type": "none"
+            },
+            "protocol": "grpc",
+            "protocolConfig": {
+              "protoFile": "syntax = \"proto3\";\n\npackage grpcbin;\n\n// Unary methods of the public grpcb.in test server (github.com/moul/pb).\n// Test Studio supports unary calls, so the streaming methods are left out.\nservice GRPCBin {\n  // Describes the server's endpoints.\n  rpc Index(EmptyMessage) returns (IndexReply) {}\n  // Replies with an empty message.\n  rpc Empty(EmptyMessage) returns (EmptyMessage) {}\n  // Echoes back the DummyMessage it receives.\n  rpc DummyUnary(DummyMessage) returns (DummyMessage) {}\n  // Fails with the status code you ask for.\n  rpc SpecificError(SpecificErrorRequest) returns (EmptyMessage) {}\n  // Returns the request metadata it received.\n  rpc HeadersUnary(EmptyMessage) returns (HeadersMessage) {}\n}\n\nmessage HeadersMessage {\n  message Values {\n    repeated string values = 1;\n  }\n  map<string, Values> Metadata = 1;\n}\n\nmessage SpecificErrorRequest {\n  uint32 code = 1;\n  string reason = 2;\n}\n\nmessage EmptyMessage {}\n\nmessage DummyMessage {\n  message Sub {\n    string f_string = 1;\n  }\n  enum Enum {\n    ENUM_0 = 0;\n    ENUM_1 = 1;\n    ENUM_2 = 2;\n  }\n  string f_string = 1;\n  repeated string f_strings = 2;\n  int32 f_int32 = 3;\n  repeated int32 f_int32s = 4;\n  Enum f_enum = 5;\n  repeated Enum f_enums = 6;\n  Sub f_sub = 7;\n  repeated Sub f_subs = 8;\n  bool f_bool = 9;\n  repeated bool f_bools = 10;\n  int64 f_int64 = 11;\n  repeated int64 f_int64s = 12;\n  bytes f_bytes = 13;\n  repeated bytes f_bytess = 14;\n  float f_float = 15;\n  repeated float f_floats = 16;\n}\n\nmessage IndexReply {\n  message Endpoint {\n    string path = 1;\n    string description = 2;\n  }\n  string description = 1;\n  repeated Endpoint endpoints = 2;\n}\n",
+              "serviceFullName": "grpcbin.GRPCBin",
+              "methodName": "SpecificError",
+              "requestMessage": {
+                "code": 5,
+                "reason": "Requested on purpose by the Test Studio sample"
+              },
+              "usePlaintext": true
+            }
+          }
+        },
+        {
+          "type": "request",
+          "name": "Server streaming: ten replies (LotsOfReplies)",
+          "config": {
+            "method": "GET",
+            "url": "grpcb.in:9000",
+            "params": [],
+            "headers": [],
+            "body": {
+              "mode": "none"
+            },
+            "auth": {
+              "type": "none"
+            },
+            "protocol": "grpc",
+            "protocolConfig": {
+              "protoFile": "syntax = \"proto2\";\n\npackage hello;\n\n// Greeting service on the public grpcb.in test server (github.com/moul/pb), with its streaming methods.\nservice HelloService {\n  rpc SayHello(HelloRequest) returns (HelloResponse);\n  rpc LotsOfReplies(HelloRequest) returns (stream HelloResponse);\n  rpc LotsOfGreetings(stream HelloRequest) returns (HelloResponse);\n  rpc BidiHello(stream HelloRequest) returns (stream HelloResponse);\n}\n\nmessage HelloRequest {\n  optional string greeting = 1;\n}\n\nmessage HelloResponse {\n  required string reply = 1;\n}\n",
+              "serviceFullName": "hello.HelloService",
+              "methodName": "LotsOfReplies",
+              "requestMessage": {
+                "greeting": "streams"
+              },
+              "usePlaintext": true
+            }
+          }
+        },
+        {
+          "type": "request",
+          "name": "Client streaming: send several, End, one reply (LotsOfGreetings)",
+          "config": {
+            "method": "GET",
+            "url": "grpcb.in:9000",
+            "params": [],
+            "headers": [],
+            "body": {
+              "mode": "none"
+            },
+            "auth": {
+              "type": "none"
+            },
+            "protocol": "grpc",
+            "protocolConfig": {
+              "protoFile": "syntax = \"proto2\";\n\npackage hello;\n\n// Greeting service on the public grpcb.in test server (github.com/moul/pb), with its streaming methods.\nservice HelloService {\n  rpc SayHello(HelloRequest) returns (HelloResponse);\n  rpc LotsOfReplies(HelloRequest) returns (stream HelloResponse);\n  rpc LotsOfGreetings(stream HelloRequest) returns (HelloResponse);\n  rpc BidiHello(stream HelloRequest) returns (stream HelloResponse);\n}\n\nmessage HelloRequest {\n  optional string greeting = 1;\n}\n\nmessage HelloResponse {\n  required string reply = 1;\n}\n",
+              "serviceFullName": "hello.HelloService",
+              "methodName": "LotsOfGreetings",
+              "requestMessage": {
+                "greeting": "one"
+              },
+              "usePlaintext": true
+            }
+          }
+        },
+        {
+          "type": "request",
+          "name": "Bidirectional: each message answered (BidiHello)",
+          "config": {
+            "method": "GET",
+            "url": "grpcb.in:9000",
+            "params": [],
+            "headers": [],
+            "body": {
+              "mode": "none"
+            },
+            "auth": {
+              "type": "none"
+            },
+            "protocol": "grpc",
+            "protocolConfig": {
+              "protoFile": "syntax = \"proto2\";\n\npackage hello;\n\n// Greeting service on the public grpcb.in test server (github.com/moul/pb), with its streaming methods.\nservice HelloService {\n  rpc SayHello(HelloRequest) returns (HelloResponse);\n  rpc LotsOfReplies(HelloRequest) returns (stream HelloResponse);\n  rpc LotsOfGreetings(stream HelloRequest) returns (HelloResponse);\n  rpc BidiHello(stream HelloRequest) returns (stream HelloResponse);\n}\n\nmessage HelloRequest {\n  optional string greeting = 1;\n}\n\nmessage HelloResponse {\n  required string reply = 1;\n}\n",
+              "serviceFullName": "hello.HelloService",
+              "methodName": "BidiHello",
+              "requestMessage": {
+                "greeting": "hi"
+              },
+              "usePlaintext": true
+            }
+          }
+        },
+        {
+          "type": "request",
+          "name": "From server reflection, no .proto (click Load services)",
+          "config": {
+            "method": "GET",
+            "url": "grpcb.in:9000",
+            "params": [],
+            "headers": [],
+            "body": {
+              "mode": "none"
+            },
+            "auth": {
+              "type": "none"
+            },
+            "protocol": "grpc",
+            "protocolConfig": {
+              "protoFile": "",
+              "serviceFullName": "hello.HelloService",
+              "methodName": "SayHello",
+              "requestMessage": {
+                "greeting": "reflection"
+              },
+              "usePlaintext": true,
+              "source": "reflection"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "category": "api",
+      "name": "Sample — SOAP",
+      "folders": [],
+      "items": [
+        {
+          "type": "request",
+          "name": "Add two numbers (SOAP 1.1)",
+          "config": {
+            "method": "POST",
+            "url": "http://www.dneonline.com/calculator.asmx",
+            "params": [],
+            "headers": [],
+            "body": {
+              "mode": "raw",
+              "raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\n  <soap:Body>\n    <Add xmlns=\"http://tempuri.org/\">\n      <intA>2</intA>\n      <intB>3</intB>\n    </Add>\n  </soap:Body>\n</soap:Envelope>"
+            },
+            "auth": {
+              "type": "none"
+            },
+            "protocol": "soap",
+            "protocolConfig": {
+              "version": "1.1",
+              "action": "http://tempuri.org/Add"
+            },
+            "testScript": "ancr.test(\"2 + 3 = 5\", () => ancr.expect(ancr.response.body).toContain(\"<AddResult>5</AddResult>\"));"
+          }
+        },
+        {
+          "type": "request",
+          "name": "Multiply (SOAP 1.2)",
+          "config": {
+            "method": "POST",
+            "url": "http://www.dneonline.com/calculator.asmx",
+            "params": [],
+            "headers": [],
+            "body": {
+              "mode": "raw",
+              "raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<soap12:Envelope xmlns:soap12=\"http://www.w3.org/2003/05/soap-envelope\">\n  <soap12:Body>\n    <Multiply xmlns=\"http://tempuri.org/\">\n      <intA>{{postId}}</intA>\n      <intB>7</intB>\n    </Multiply>\n  </soap12:Body>\n</soap12:Envelope>"
+            },
+            "auth": {
+              "type": "none"
+            },
+            "protocol": "soap",
+            "protocolConfig": {
+              "version": "1.2",
+              "action": "http://tempuri.org/Multiply"
+            }
+          }
+        },
+        {
+          "type": "request",
+          "name": "A fault (divide by zero)",
+          "config": {
+            "method": "POST",
+            "url": "http://www.dneonline.com/calculator.asmx",
+            "params": [],
+            "headers": [],
+            "body": {
+              "mode": "raw",
+              "raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\n  <soap:Body>\n    <Divide xmlns=\"http://tempuri.org/\">\n      <intA>1</intA>\n      <intB>0</intB>\n    </Divide>\n  </soap:Body>\n</soap:Envelope>"
+            },
+            "auth": {
+              "type": "none"
+            },
+            "protocol": "soap",
+            "protocolConfig": {
+              "version": "1.1",
+              "action": "http://tempuri.org/Divide"
+            },
+            "testScript": "ancr.test(\"the service faults\", () => ancr.expect(ancr.response.status).toBe(500));"
+          }
+        }
+      ]
+    },
+    {
+      "category": "api",
+      "name": "Sample — AI APIs",
+      "folders": [],
+      "items": [
+        {
+          "type": "request",
+          "name": "OpenAI: stream a chat completion (SSE over POST)",
+          "config": {
+            "method": "POST",
+            "url": "{{openaiBaseUrl}}/chat/completions",
+            "params": [],
+            "headers": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "enabled": true
+              }
+            ],
+            "body": {
+              "mode": "json",
+              "raw": "{\n  \"model\": \"gpt-4.1-mini\",\n  \"stream\": true,\n  \"stream_options\": {\n    \"include_usage\": true\n  },\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"In one sentence, what is an API?\"\n    }\n  ]\n}"
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": {
+                "token": "{{openaiApiKey}}"
+              }
+            },
+            "protocol": "sse",
+            "testScript": "// Runs again as events arrive: it passes once the stream has ended.\nancr.test(\"the stream ends with [DONE]\", () => ancr.expect(ancr.messages.some((m) => m.data === \"[DONE]\")).toBe(true));\nancr.test(\"it reports the tokens used\", () => ancr.expect(ancr.messages.some((m) => m.data.includes('\"usage\":{'))).toBe(true));"
+          }
+        },
+        {
+          "type": "request",
+          "name": "OpenAI: a chat completion, not streamed",
+          "config": {
+            "method": "POST",
+            "url": "{{openaiBaseUrl}}/chat/completions",
+            "params": [],
+            "headers": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "enabled": true
+              }
+            ],
+            "body": {
+              "mode": "json",
+              "raw": "{\n  \"model\": \"gpt-4.1-mini\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"In one sentence, what is an API?\"\n    }\n  ]\n}"
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": {
+                "token": "{{openaiApiKey}}"
+              }
+            },
+            "protocol": "http",
+            "testScript": "ancr.test(\"status is 200\", () => {\n  ancr.expect(ancr.response.status).toBe(200);\n});\n\nancr.test(\"it answered, and says how many tokens it used\", () => {\n  const body = ancr.response.json();\n  ancr.expect(body.choices[0].message.content.length).toBeGreaterThan(0);\n  ancr.expect(body.usage.total_tokens).toBeGreaterThan(0);\n});"
+          }
+        },
+        {
+          "type": "request",
+          "name": "Anthropic: stream a message (SSE over POST)",
+          "config": {
+            "method": "POST",
+            "url": "{{anthropicBaseUrl}}/messages",
+            "params": [],
+            "headers": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "enabled": true
+              },
+              {
+                "key": "x-api-key",
+                "value": "{{anthropicApiKey}}",
+                "enabled": true
+              },
+              {
+                "key": "anthropic-version",
+                "value": "2023-06-01",
+                "enabled": true
+              }
+            ],
+            "body": {
+              "mode": "json",
+              "raw": "{\n  \"model\": \"claude-haiku-4-5\",\n  \"max_tokens\": 256,\n  \"stream\": true,\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"In one sentence, what is an API?\"\n    }\n  ]\n}"
+            },
+            "auth": {
+              "type": "none"
+            },
+            "protocol": "sse",
+            "testScript": "// Runs again as events arrive: it passes once the message is complete.\nancr.test(\"the message completes\", () => ancr.expect(ancr.messages.some((m) => m.channel === \"message_stop\")).toBe(true));"
+          }
+        },
+        {
+          "type": "request",
+          "name": "A local model (Ollama, no key needed): stream a chat completion",
+          "config": {
+            "method": "POST",
+            "url": "{{localModelUrl}}/chat/completions",
+            "params": [],
+            "headers": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "enabled": true
+              }
+            ],
+            "body": {
+              "mode": "json",
+              "raw": "{\n  \"model\": \"llama3.2\",\n  \"stream\": true,\n  \"stream_options\": {\n    \"include_usage\": true\n  },\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"In one sentence, what is an API?\"\n    }\n  ]\n}"
+            },
+            "auth": {
+              "type": "none"
+            },
+            "protocol": "sse",
+            "testScript": "ancr.test(\"the stream ends with [DONE]\", () => ancr.expect(ancr.messages.some((m) => m.data === \"[DONE]\")).toBe(true));"
+          }
+        }
+      ]
+    },
+    {
+      "category": "websocket",
+      "name": "Sample — WebSocket",
+      "folders": [
+        {
+          "name": "With headers and auth",
+          "folders": [],
+          "items": [
+            {
+              "type": "websocket",
+              "name": "Echo with custom headers",
+              "url": "wss://echo.websocket.org",
+              "headers": [
+                {
+                  "key": "X-Client",
+                  "value": "TestStudio-sample",
+                  "enabled": true
+                }
+              ],
+              "subprotocols": [],
+              "auth": {
+                "type": "none"
+              }
+            },
+            {
+              "type": "websocket",
+              "name": "Echo with a bearer token",
+              "url": "wss://echo.websocket.org",
+              "headers": [],
+              "subprotocols": [],
+              "auth": {
+                "type": "bearer",
+                "bearer": {
+                  "token": "sample-token"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "items": [
+        {
+          "type": "websocket",
+          "name": "Echo server",
+          "url": "wss://echo.websocket.org",
+          "headers": [],
+          "subprotocols": [],
+          "auth": {
+            "type": "none"
+          }
+        },
+        {
+          "type": "websocket",
+          "name": "Postman echo server",
+          "url": "wss://ws.postman-echo.com/raw",
+          "headers": [],
+          "subprotocols": [],
+          "auth": {
+            "type": "none"
+          }
+        },
+        {
+          "type": "websocket",
+          "name": "Echo via {{wsEchoUrl}}, with tests",
+          "url": "{{wsEchoUrl}}",
+          "headers": [],
+          "subprotocols": [],
+          "auth": {
+            "type": "none"
+          },
+          "testScript": "// Connect, send a message: the tests run again as messages arrive.\nancr.test(\"something comes back\", () => {\n  ancr.expect(ancr.messages.some((m) => m.direction === \"received\")).toBe(true);\n});\nancr.test(\"what's sent is echoed\", () => {\n  const sent = ancr.messages.filter((m) => m.direction === \"sent\").map((m) => m.data);\n  const received = ancr.messages.filter((m) => m.direction === \"received\").map((m) => m.data);\n  ancr.expect(sent.every((text) => received.includes(text))).toBe(true);\n});"
+        }
+      ]
+    },
+    {
+      "category": "mcp",
+      "name": "Sample — MCP",
+      "folders": [
+        {
+          "name": "Local servers (need Node.js)",
+          "folders": [],
+          "items": [
+            {
+              "type": "mcp",
+              "name": "Everything (reference server: tools, resources, prompts)",
+              "transport": "stdio",
+              "command": "npx",
+              "args": [
+                "-y",
+                "@modelcontextprotocol/server-everything"
+              ],
+              "env": [
+                {
+                  "key": "NODE_NO_WARNINGS",
+                  "value": "1",
+                  "enabled": true
+                }
+              ],
+              "headers": []
+            },
+            {
+              "type": "mcp",
+              "name": "Memory (knowledge graph)",
+              "transport": "stdio",
+              "command": "npx",
+              "args": [
+                "-y",
+                "@modelcontextprotocol/server-memory"
+              ],
+              "env": [],
+              "headers": []
+            }
+          ]
+        },
+        {
+          "name": "Remote servers",
+          "folders": [],
+          "items": [
+            {
+              "type": "mcp",
+              "name": "DeepWiki (docs for public GitHub repos)",
+              "transport": "http",
+              "command": "https://mcp.deepwiki.com/mcp",
+              "args": [],
+              "env": [],
+              "headers": []
+            }
+          ]
+        }
+      ],
+      "items": []
+    },
+    {
+      "category": "messaging",
+      "name": "Sample — Messaging",
+      "folders": [
+        {
+          "name": "Public test brokers (work straight away)",
+          "folders": [],
+          "items": [
+            {
+              "type": "messaging",
+              "name": "Mosquitto test broker (MQTT 3.1.1)",
+              "protocol": "mqtt",
+              "url": "mqtt://test.mosquitto.org:1883",
+              "headers": [],
+              "auth": {
+                "type": "none"
+              },
+              "settings": {},
+              "subscriptions": [
+                {
+                  "channel": "TestStudio-sample/#"
+                }
+              ]
+            },
+            {
+              "type": "messaging",
+              "name": "Mosquitto over WebSocket and TLS (wss)",
+              "protocol": "mqtt",
+              "url": "wss://test.mosquitto.org:8081",
+              "headers": [],
+              "auth": {
+                "type": "none"
+              },
+              "settings": {},
+              "subscriptions": [
+                {
+                  "channel": "TestStudio-sample/#",
+                  "options": {
+                    "qos": 1
+                  }
+                }
+              ]
+            },
+            {
+              "type": "messaging",
+              "name": "HiveMQ public broker (MQTT 5)",
+              "protocol": "mqtt",
+              "url": "mqtt://broker.hivemq.com:1883",
+              "headers": [],
+              "auth": {
+                "type": "none"
+              },
+              "settings": {
+                "protocolVersion": 5
+              },
+              "subscriptions": [
+                {
+                  "channel": "TestStudio-sample/#",
+                  "options": {
+                    "qos": 1
+                  }
+                }
+              ]
+            },
+            {
+              "type": "messaging",
+              "name": "NATS demo server",
+              "protocol": "nats",
+              "url": "nats://demo.nats.io:4222",
+              "headers": [],
+              "auth": {
+                "type": "none"
+              },
+              "settings": {},
+              "subscriptions": [
+                {
+                  "channel": "TestStudio.sample.>"
+                }
+              ]
+            },
+            {
+              "type": "messaging",
+              "name": "Mosquitto, with tests on what arrives",
+              "protocol": "mqtt",
+              "url": "mqtt://test.mosquitto.org:1883",
+              "headers": [],
+              "auth": {
+                "type": "none"
+              },
+              "settings": {},
+              "subscriptions": [
+                {
+                  "channel": "TestStudio/sample/orders/#",
+                  "options": {
+                    "qos": 0
+                  }
+                }
+              ],
+              "testScript": "// Publish {\"status\":\"paid\"} to TestStudio/sample/orders/1 on the Publish tab.\nancr.test(\"an order is paid within 30 s\", () => {\n  const paid = ancr.messages.find((m) => m.direction === \"received\" && m.json().status === \"paid\");\n  ancr.expect(paid).toBeDefined();\n  ancr.expect(paid.at).toBeLessThan(30000);\n});"
+            }
+          ]
+        },
+        {
+          "name": "Local brokers (start them with Docker, see the README)",
+          "folders": [],
+          "items": [
+            {
+              "type": "messaging",
+              "name": "Kafka on localhost",
+              "protocol": "kafka",
+              "url": "kafka://localhost:9092",
+              "headers": [],
+              "auth": {
+                "type": "none"
+              },
+              "settings": {},
+              "subscriptions": [
+                {
+                  "channel": "orders",
+                  "options": {
+                    "fromBeginning": true
+                  }
+                }
+              ]
+            },
+            {
+              "type": "messaging",
+              "name": "RabbitMQ on localhost",
+              "protocol": "amqp",
+              "url": "amqp://localhost:5672/",
+              "headers": [],
+              "auth": {
+                "type": "basic",
+                "basic": {
+                  "username": "guest",
+                  "password": "guest"
+                }
+              },
+              "settings": {},
+              "subscriptions": [
+                {
+                  "channel": "orders",
+                  "options": {
+                    "declare": true
+                  }
+                },
+                {
+                  "channel": "",
+                  "options": {
+                    "exchange": "amq.topic",
+                    "routingKey": "sensors.*"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "messaging",
+              "name": "NATS on localhost",
+              "protocol": "nats",
+              "url": "nats://localhost:4222",
+              "headers": [],
+              "auth": {
+                "type": "none"
+              },
+              "settings": {},
+              "subscriptions": [
+                {
+                  "channel": "orders.>"
+                },
+                {
+                  "channel": "jobs",
+                  "options": {
+                    "queue": "workers"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "messaging",
+              "name": "Socket.IO server on localhost",
+              "protocol": "socketio",
+              "url": "http://localhost:3000",
+              "headers": [],
+              "auth": {
+                "type": "none"
+              },
+              "settings": {},
+              "subscriptions": [
+                {
+                  "channel": "*"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "items": []
+    }
+  ],
+  "environments": [
+    {
+      "name": "Sample — Postman Echo",
+      "variables": {
+        "envName": "postman-echo",
+        "baseUrl": "https://postman-echo.com",
+        "jsonUrl": "https://jsonplaceholder.typicode.com",
+        "countriesGraphqlUrl": "https://countries.trevorblades.com/graphql",
+        "postId": "1",
+        "pageSize": "5",
+        "username": "TestStudio-user",
+        "password": "TestStudio-demo-password",
+        "token": "sample-token",
+        "apiKey": "sample-api-key",
+        "wsEchoUrl": "wss://echo.websocket.org",
+        "oauthTokenUrl": "",
+        "oauthClientId": "",
+        "oauthClientSecret": "",
+        "openaiBaseUrl": "https://api.openai.com/v1",
+        "openaiApiKey": "",
+        "anthropicBaseUrl": "https://api.anthropic.com/v1",
+        "anthropicApiKey": "",
+        "localModelUrl": "http://localhost:11434/v1"
+      }
+    },
+    {
+      "name": "Sample — httpbin",
+      "variables": {
+        "envName": "httpbin",
+        "baseUrl": "https://httpbin.org",
+        "jsonUrl": "https://jsonplaceholder.typicode.com",
+        "countriesGraphqlUrl": "https://countries.trevorblades.com/graphql",
+        "postId": "1",
+        "pageSize": "5",
+        "username": "TestStudio-user",
+        "password": "TestStudio-demo-password",
+        "token": "sample-token",
+        "apiKey": "sample-api-key",
+        "wsEchoUrl": "wss://echo.websocket.org",
+        "oauthTokenUrl": "",
+        "oauthClientId": "",
+        "oauthClientSecret": "",
+        "openaiBaseUrl": "https://api.openai.com/v1",
+        "openaiApiKey": "",
+        "anthropicBaseUrl": "https://api.anthropic.com/v1",
+        "anthropicApiKey": "",
+        "localModelUrl": "http://localhost:11434/v1"
+      }
+    }
+  ]
+}
