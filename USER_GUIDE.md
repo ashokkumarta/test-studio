@@ -2,7 +2,7 @@
 
 # Fast. Local. Reliable.
 
-**User Guide · version 0.14.1**
+**User Guide · version 0.15.0**
 
 Test Studio is a desktop API client for building, sending, testing and sharing API
 requests. It works entirely on your own computer: there's no account, no
@@ -30,19 +30,15 @@ stored locally. Test Studio only connects to the APIs you send requests to.
   from any request.
 - **Export and import** Test Studio files to share your work with teammates.
 
-**This is the Test Studio demo.** Every feature is included, until
-31 January 2027. From that day it stops opening; to keep working, ask
-ashokkumar.ta@gmail.com for the full version, which installs over the demo and
-keeps your work. The demo asks who you are when it first starts
-(see [First launch](#first-launch)).
-
 ---
 
 ## Installing Test Studio
 
 Test Studio runs on Windows. To install it:
 
-1. Run the installer you were given, `Test Studio Demo Setup 0.14.1.exe`.
+1. Download the installer, `Test Studio Setup 0.15.0.exe`, from
+   [github.com/ashokkumarta/test-studio](https://github.com/ashokkumarta/test-studio/releases),
+   and run it.
 2. If Windows shows _"Windows protected your PC"_, click **More info**, then
    **Run anyway**.
 3. Follow the installer. You can choose the install folder, and whether to
@@ -88,6 +84,13 @@ start the app.
 
 - **Title bar:** Test Studio's icon and name, the open workspace and the
   environment in use (**No environment** when there's none).
+- **Menu bar** (across the top): on the left, Test Studio's name, then the
+  collection (and folders) the open item is in and the item. On the right:
+  - **Workspace:** the open workspace; pick another to switch to it. The
+    **⋯** next to it opens the **Workspaces** view.
+  - **Environment:** the environment in use; pick another, or **No
+    environment**. The **⋯** next to it opens the environments.
+  - **⚙** opens the settings menu.
 - **Activity bar** (the icon strip on the far left): picks what the sidebar
   shows, one section at a time:
   - **API:** saved HTTP, GraphQL, SSE, gRPC and SOAP requests.
@@ -98,9 +101,7 @@ start the app.
   - **History:** the requests you've sent (see [History](#history)).
 
   Click the section already shown to hide the sidebar, and any section to
-  show it again. At the bottom, **{ }** opens the environments (where you
-  also pick the one in use), the stacked-layers icon opens the
-  **Workspaces** view, and **⚙** opens the settings menu.
+  show it again.
 
 - **Sidebar:** the chosen section's collections. Drag its right edge to make
   it wider or narrower. Test Studio remembers the section, the width and whether
@@ -163,15 +164,15 @@ session's logs. Test Studio starts with one, **My Workspace**, and you can add
 more, for example one per project or client. One is open at a time, and
 Test Studio reopens the last one you used.
 
-Workspaces are created, switched, renamed and deleted in the **Workspaces**
-view: click **Manage workspaces** (the stacked-layers icon at the bottom of
-the activity bar). When you switch, the other workspace's tabs come back as
+Switch workspaces with the **Workspace** list on the menu bar. They're
+created, switched, renamed and deleted in the **Workspaces** view: click
+**Manage workspaces** (the **⋯** next to that list). When you switch, the other workspace's tabs come back as
 you left them; if a tab has unsaved changes, Test Studio asks whether to save them
 first.
 
 ### Managing workspaces
 
-The **Workspaces** view (**Manage workspaces** on the activity bar) takes the place of the tabs in
+The **Workspaces** view (**Manage workspaces** on the menu bar) takes the place of the tabs in
 the main panel. It shows every workspace as a card with a count of what's
 in it: requests, WebSocket, MCP and messaging connections, folders,
 environments, History entries and cookies. The open one is marked **Currently open**.
@@ -593,10 +594,10 @@ settings and subscriptions.
 ## Environments and variables
 
 An **environment** is a named set of variables, for example _Local_,
-_Staging_ and _Production_. Click **Environments** (**{ }** on the activity
-bar) to create, rename and delete environments and edit their variables.
-The box next to an environment's name makes it the active one; uncheck it
-to use **no environment**.
+_Staging_ and _Production_. Click **Environments** (the **⋯** next to the
+**Environment** list on the menu bar) to create, rename and delete environments and edit their variables.
+Pick the one in use from the **Environment** list beside it, or tick the
+box next to an environment's name; uncheck it to use **no environment**.
 
 In requests, write `{{variableName}}` anywhere: the URL, params, headers,
 body, auth or GraphQL query. When you send, it's replaced with the value
@@ -1114,7 +1115,7 @@ if you ask for it, in the Windows installer (**Include the sample
 workspace**); it's off by default. Elsewhere, such as on a Mac,
 [import it yourself](#importing-it-yourself). It appears in the Workspaces view named for
 reference, with its version and the day it was added, such as
-**Sample (reference only) · v0.14.1 · installed 2026-10-21**, and the
+**Sample (reference only) · v0.15.0 · installed 2026-10-28**, and the
 environment **Sample — httpbin** is in it. Adding it doesn't open it: click
 **Open** on its card in the Workspaces view.
 
@@ -1133,7 +1134,7 @@ The sample workspace is for reference only:
 1. Download
    [TestStudio-sample-workspace.ancr.json](https://github.com/ashokkumarta/test-studio/raw/main/samples/TestStudio-sample-workspace.ancr.json).
    ([What's inside](https://github.com/ashokkumarta/test-studio/tree/main/samples).)
-2. Click **Manage workspaces** on the activity bar, click
+2. Click **Manage workspaces** on the menu bar, click
    **Import** on your workspace's card, and choose the file. Or click
    **Import new workspace…** to keep the sample in a workspace of its own.
 3. In the preview, tick **Import scripts**, then click **Import**.

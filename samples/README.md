@@ -13,11 +13,11 @@ messaging brokers, which you start with Docker.
 1. Download [`TestStudio-sample-workspace.ancr.json`](https://github.com/ashokkumarta/test-studio/raw/main/samples/TestStudio-sample-workspace.ancr.json).
 2. In Test Studio, open **⚙ → Import workspace…** and choose the file. To keep it
    apart from your own work, choose **Into a new workspace**: switch between
-   them in the Workspaces view (**Manage workspaces** on the activity bar).
+   them in the Workspaces view (**Manage workspaces** on the menu bar).
 3. In the preview, tick **Import scripts**. Every HTTP and GraphQL sample
    has test scripts, and some have pre-request scripts; they're left out
    unless you tick this.
-4. Click **Import**, then open **Environments** (**{ }** on the activity bar)
+4. Click **Import**, then open **Environments** (the **⋯** next to the menu bar's **Environment** list)
    and check **Sample — httpbin**.
 
 Everything is added alongside your own work. Nothing you already have is
@@ -192,7 +192,7 @@ to a different server.
   **Sample — AI APIs → OpenAI: stream a chat completion**. The answer
   appears as it's written.
 - **Workspaces:** make a second one in the Workspaces view (**Manage
-  workspaces** on the activity bar, then **Create new workspace…**) and
+  workspaces** on the menu bar, then **Create new workspace…**) and
   switch back: each keeps its own requests,
   environments, history and open tabs.
 - **A SOAP service from its WSDL:** open **Import → WSDL (SOAP)** and paste
