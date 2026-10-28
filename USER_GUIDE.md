@@ -1,8 +1,6 @@
 <img src="public/logo.svg" alt="Test Studio" height="72">
 
-# Fast. Local. Reliable.
-
-**User Guide · version 0.15.0**
+**User Guide · version 0.15.1**
 
 Test Studio is a desktop API client for building, sending, testing and sharing API
 requests. It works entirely on your own computer: there's no account, no
@@ -36,7 +34,7 @@ stored locally. Test Studio only connects to the APIs you send requests to.
 
 Test Studio runs on Windows. To install it:
 
-1. Download the installer, `Test Studio Setup 0.15.0.exe`, from
+1. Download the installer, `Test Studio Setup 0.15.1.exe`, from
    [github.com/ashokkumarta/test-studio](https://github.com/ashokkumarta/test-studio/releases),
    and run it.
 2. If Windows shows _"Windows protected your PC"_, click **More info**, then
@@ -82,8 +80,7 @@ start the app.
 
 ## The main window
 
-- **Title bar:** Test Studio's icon and name, the open workspace and the
-  environment in use (**No environment** when there's none).
+- **Title bar:** Test Studio's icon, name and tagline.
 - **Menu bar** (across the top): on the left, Test Studio's name, then the
   collection (and folders) the open item is in and the item. On the right:
   - **Workspace:** the open workspace; pick another to switch to it. The
@@ -1115,7 +1112,7 @@ if you ask for it, in the Windows installer (**Include the sample
 workspace**); it's off by default. Elsewhere, such as on a Mac,
 [import it yourself](#importing-it-yourself). It appears in the Workspaces view named for
 reference, with its version and the day it was added, such as
-**Sample (reference only) · v0.15.0 · installed 2026-10-28**, and the
+**Sample (reference only) · v0.15.1 · installed 2026-10-28**, and the
 environment **Sample — httpbin** is in it. Adding it doesn't open it: click
 **Open** on its card in the Workspaces view.
 
